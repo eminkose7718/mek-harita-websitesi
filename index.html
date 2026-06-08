@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEK Harita & Mühendislik | Yalova Harita Mühendisliği ve Ölçüm Hizmetleri</title>
+  <meta name="description" content="MEK Harita & Mühendislik; Yalova’da aplikasyon, arazi ölçümü, parsel sınır tespiti, GNSS ölçümü, kübaj hesabı, vaziyet planı ve inşaat ölçüm hizmetleri sunar." />
+  
+  <meta property="og:title" content="MEK Harita & Mühendislik" />
+  <meta property="og:description" content="Ölçüde Hassas, Çözümde Güçlü." />
+  <meta property="og:type" content="website" />
+
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary: #113f28;
+      --color-primary-dark: #0a291a;
+      --color-accent: #5d4037;
+      --color-bg-light: #f8fbf9;
+      --color-grid: #e2e8e5;
+    }
+  </style>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#f8fbf9] antialiased text-gray-900">
+  
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-[80px]">
+        
+        <button class="flex-shrink-0 cursor-pointer p-0 border-none bg-transparent flex items-center h-full outline-none focus:ring-2 focus:ring-primary" onclick="closeModals()" aria-label="Ana Sayfa">
+          <img src="/logo.png" alt="" class="h-[44px] md:h-[56px] w-auto object-contain mr-4" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
+          <span class="hidden font-bold text-xl md:text-2xl text-primary font-sans tracking-tight">
+            MEK Harita & Mühendislik
+          </span>
+        </button>
+        
+        <nav class="hidden md:flex space-x-6 lg:space-x-8">
+          <button onclick="closeModals()" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus:text-primary transition-colors text-sm lg:text-base">Ana Sayfa</button>
+          <button onclick="openModal('corporate')" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus:text-primary transition-colors text-sm lg:text-base">Kurumsal</button>
+          <button onclick="openModal('services')" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus:text-primary transition-colors text-sm lg:text-base">Hizmetler</button>
+          <button onclick="openModal('tech')" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus:text-primary transition-colors text-sm lg:text-base">Teknik Altyapı</button>
+          <button onclick="openModal('areas')" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus:text-primary transition-colors text-sm lg:text-base">Çalışma Alanları</button>
+          <button onclick="openModal('faq')" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus:text-primary transition-colors text-sm lg:text-base">SSS</button>
+          <button onclick="openModal('contact')" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus:text-primary transition-colors text-sm lg:text-base">İletişim</button>
+        </nav>
+
+        <div class="md:hidden flex items-center">
+          <button id="mobileMenuBtn" class="text-gray-800 p-2 focus:outline-none focus:ring-2 focus:ring-primary rounded bg-gray-50 border border-gray-200" aria-label="Menüyü Aç/Kapat">
+             <i data-lucide="menu" id="menuIcon"></i>
+             <i data-lucide="x" id="closeIcon" class="hidden"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobil Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-gray-200 absolute w-full shadow-lg">
+      <div class="px-4 py-2 space-y-1">
+        <button onclick="closeModals(); toggleMobileMenu();" class="w-full text-left px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 flex items-center justify-between focus:outline-none">Ana Sayfa</button>
+        <button onclick="openModal('corporate'); toggleMobileMenu();" class="w-full text-left px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 flex items-center justify-between focus:outline-none">Kurumsal</button>
+        <button onclick="openModal('services'); toggleMobileMenu();" class="w-full text-left px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 flex items-center justify-between focus:outline-none">Hizmetler</button>
+        <button onclick="openModal('tech'); toggleMobileMenu();" class="w-full text-left px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 flex items-center justify-between focus:outline-none">Teknik Altyapı</button>
+        <button onclick="openModal('areas'); toggleMobileMenu();" class="w-full text-left px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 flex items-center justify-between focus:outline-none">Çalışma Alanları</button>
+        <button onclick="openModal('faq'); toggleMobileMenu();" class="w-full text-left px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 flex items-center justify-between focus:outline-none">SSS</button>
+        <button onclick="openModal('contact'); toggleMobileMenu();" class="w-full text-left px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 last:border-0 flex items-center justify-between focus:outline-none">İletişim</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="relative bg-white py-16 md:py-28 overflow-hidden border-b border-gray-200 flex flex-col items-center justify-center min-h-[75vh]">
+      <div class="absolute inset-0 pointer-events-none opacity-50 hero-bg"></div>
+      
+      <div class="hidden md:block absolute top-[10%] left-[5%] text-xs font-mono text-gray-300 font-medium tracking-wider pointer-events-none select-none">Y: 40.654895</div>
+      <div class="hidden md:block absolute bottom-[10%] right-[5%] text-xs font-mono text-gray-300 font-medium text-right tracking-wider pointer-events-none select-none">X: 29.284186</div>
+
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center w-full">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary tracking-tight mb-4">
+          MEK Harita & Mühendislik
+        </h1>
+        
+        <p class="text-xl md:text-2xl font-serif italic text-accent mb-10">
+          “Ölçüde Hassas, Çözümde Güçlü.”
+        </p>
+        
+        <p class="text-base md:text-lg text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+          Yalova ve çevresinde harita mühendisliği, aplikasyon, parsel sınır tespiti ve teknik danışmanlık hizmetlerinde güvenilir veri üretimi ve resmi süreçlere uygun çözümler sunuyoruz.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-6 mb-12">
+          <div class="flex items-center justify-center gap-2 text-sm md:text-base font-semibold text-gray-800 bg-white px-5 py-3 border border-gray-200 rounded-sm shadow-sm">
+            <i data-lucide="shield-check" class="text-primary w-[22px] h-[22px]"></i> Hassas Ölçüm
+          </div>
+          <div class="flex items-center justify-center gap-2 text-sm md:text-base font-semibold text-gray-800 bg-white px-5 py-3 border border-gray-200 rounded-sm shadow-sm">
+            <i data-lucide="calculator" class="text-primary w-[22px] h-[22px]"></i> Güvenilir Teknik Veri
+          </div>
+          <div class="flex items-center justify-center gap-2 text-sm md:text-base font-semibold text-gray-800 bg-white px-5 py-3 border border-gray-200 rounded-sm shadow-sm">
+            <i data-lucide="map" class="text-primary w-[22px] h-[22px]"></i> Resmi Süreçlere Uygun
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <button onclick="openModal('services')" class="bg-primary hover:bg-primary-dark text-white font-bold py-3.5 px-8 rounded-sm transition-colors text-lg border-2 border-transparent shadow-sm hover:cursor-pointer">
+            Hizmetlerimizi İnceleyin
+          </button>
+          <button onclick="openModal('contact')" class="bg-white hover:bg-gray-50 text-primary font-bold py-3.5 px-8 rounded-sm transition-colors text-lg border-2 border-primary shadow-sm hover:cursor-pointer">
+            Teklif Alın
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 md:py-16 bg-gray-50 border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <button onclick="openModal('corporate')" class="hover:cursor-pointer bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
+              <i data-lucide="building-2" class="w-[32px] h-[32px]"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Kurumsal</h3>
+            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed flex items-start">Yalova ve çevresinde mühendislik disiplini ve güvenilir teknik hizmet anlayışı.</p>
+            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
+          </button>
+
+          <button onclick="openModal('services')" class="hover:cursor-pointer bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
+              <i data-lucide="layout-grid" class="w-[32px] h-[32px]"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Hizmetler</h3>
+            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed flex items-start">Aplikasyon, sayısal halihazır harita, arazi ölçümü, parsel sınır tespiti ve teknik çözümler.</p>
+            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
+          </button>
+
+          <button onclick="openModal('tech')" class="hover:cursor-pointer bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
+              <i data-lucide="cpu" class="w-[32px] h-[32px]"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Teknik Altyapı</h3>
+            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed flex items-start">GNSS / GPS ölçüm altyapısı ve teknik çizim-hesaplama yazılımları.</p>
+            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
+          </button>
+
+          <button onclick="openModal('areas')" class="hover:cursor-pointer bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
+              <i data-lucide="briefcase" class="w-[32px] h-[32px]"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Çalışma Alanları</h3>
+            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed flex items-start">Konut projeleri, arsa ölçümleri, imar süreçleri ve hafriyat hesaplamaları.</p>
+            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-primary text-white border-t-4 border-accent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex flex-col items-center md:items-start text-center md:text-left">
+          <h2 class="text-xl md:text-2xl font-bold tracking-tight mb-2">MEK Harita &<br class="md:hidden" /> Mühendislik</h2>
+          <p class="text-gray-200 text-base md:text-lg font-medium">Ölçüde Hassas, Çözümde Güçlü.</p>
+        </div>
+        <div class="flex flex-col items-center justify-center md:items-start md:justify-start w-full">
+          <h3 class="text-base md:text-lg font-bold mb-3 opacity-90">Hızlı Bağlantılar</h3>
+          <ul class="space-y-2 flex flex-col items-center md:items-start">
+            <li><button onclick="openModal('corporate')" class="hover:cursor-pointer text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus:underline">Kurumsal</button></li>
+            <li><button onclick="openModal('services')" class="hover:cursor-pointer text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus:underline">Hizmetler</button></li>
+            <li><button onclick="openModal('tech')" class="hover:cursor-pointer text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus:underline">Teknik Altyapı</button></li>
+            <li><button onclick="openModal('areas')" class="hover:cursor-pointer text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus:underline">Çalışma Alanları</button></li>
+            <li><button onclick="openModal('contact')" class="hover:cursor-pointer text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus:underline">İletişim</button></li>
+          </ul>
+        </div>
+        <div class="flex flex-col items-center md:items-end text-center md:text-right w-full">
+          <h3 class="text-base md:text-lg font-bold mb-3 opacity-90">İletişim</h3>
+          <ul class="space-y-2 flex flex-col items-center md:items-end">
+            <li class="flex items-center gap-2 text-sm text-gray-200">
+              <span>Yalova, Türkiye</span>
+              <i data-lucide="map-pin" class="opacity-80 hidden md:block w-[18px] h-[18px]"></i>
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-200">
+              <span>mekharitaofis@gmail.com</span>
+              <i data-lucide="mail" class="opacity-80 hidden md:block w-[18px] h-[18px]"></i>
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-200 font-medium">
+              <span>+90 545 895 3918</span>
+              <i data-lucide="phone" class="opacity-80 hidden md:block w-[18px] h-[18px]"></i>
+            </li>
+            <li class="pt-2 w-full flex justify-center md:justify-end">
+              <a href="https://wa.me/905458953918" target="_blank" rel="noopener noreferrer" class="inline-block bg-[#185e35] text-white hover:bg-[#134928] transition-colors text-sm font-bold border border-transparent px-4 py-2 rounded-sm">
+                WhatsApp ile İletişime Geç
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-[#133023]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-center">
+        <p class="text-xs text-gray-400 font-medium text-center">&copy; 2026 MEK Harita & Mühendislik. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Container -->
+  <div id="modalOverlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 md:p-8" onclick="handleBackdropClick(event)" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm shadow-2xl flex flex-col relative" onclick="event.stopPropagation()">
+      <div class="sticky top-0 bg-white border-b border-gray-200 p-4 md:px-8 md:py-6 flex justify-between items-center z-10 shadow-sm">
+        <h2 id="modal-title" class="text-xl md:text-2xl font-bold text-primary"></h2>
+        <button onclick="closeModals()" class="hover:cursor-pointer p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-primary transition-colors" aria-label="Kapat">
+          <i data-lucide="x" class="w-[26px] h-[26px]"></i>
+        </button>
+      </div>
+      <div id="modal-content" class="p-4 md:p-8 overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>

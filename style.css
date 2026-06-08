@@ -1,0 +1,18 @@
+@theme {
+  --color-primary: #113f28;
+  --color-primary-dark: #0a291a;
+  --color-accent: #5d4037;
+  --color-bg-light: #f8fbf9;
+  --color-grid: #e2e8e5;
+}
+
+body {
+  background-color: var(--color-bg-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hero-bg {
+  background-image: linear-gradient(to right, var(--color-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
