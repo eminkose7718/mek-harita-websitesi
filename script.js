@@ -147,7 +147,7 @@ const modals = {
     content: `
       <div class="space-y-4">
         <div class="border border-gray-200 rounded bg-white">
-          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="toggleFaq(this)">
+          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="window.toggleFaq(this)">
             Aplikasyon nedir ve neden yapılır?
             <i data-lucide="chevron-down" class="text-gray-400"></i>
           </button>
@@ -156,7 +156,7 @@ const modals = {
           </div>
         </div>
         <div class="border border-gray-200 rounded bg-white">
-          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="toggleFaq(this)">
+          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="window.toggleFaq(this)">
             Hizmet süresi ne kadardır?
             <i data-lucide="chevron-down" class="text-gray-400"></i>
           </button>
@@ -165,7 +165,7 @@ const modals = {
           </div>
         </div>
         <div class="border border-gray-200 rounded bg-white">
-          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="toggleFaq(this)">
+          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="window.toggleFaq(this)">
             Sadece Yalova içine mi hizmet veriyorsunuz?
             <i data-lucide="chevron-down" class="text-gray-400"></i>
           </button>
@@ -174,7 +174,7 @@ const modals = {
           </div>
         </div>
         <div class="border border-gray-200 rounded bg-white">
-          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="toggleFaq(this)">
+          <button class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none flex justify-between items-center" onclick="window.toggleFaq(this)">
             Kot ve ekskavatör (kübaj) hesabı nasıl yapılır?
             <i data-lucide="chevron-down" class="text-gray-400"></i>
           </button>
@@ -317,3 +317,32 @@ function toggleFaq(btn) {
 
 // Iconları renderla
 lucide.createIcons();
+
+window.toggleFaq = toggleFaq;
+window.openModal = openModal;
+window.closeModals = closeModals;
+
+document.addEventListener('click', (e) => {
+  const modalToggle = e.target.closest('[data-modal]');
+  if (modalToggle) {
+    const id = modalToggle.getAttribute('data-modal');
+    openModal(id);
+  }
+
+  const closeToggle = e.target.closest('[data-close-modal]');
+  if (closeToggle) {
+    if (closeToggle.id === 'modalOverlay' && e.target.closest('[data-no-close]')) {
+      // İçerik kısmına tıklandı, kapatma
+      return;
+    }
+    closeModals();
+  }
+
+  const menuToggle = e.target.closest('[data-close-menu]');
+  if (menuToggle) {
+    const menu = document.getElementById('mobileMenu');
+    if (!menu.classList.contains('hidden')) {
+      toggleMobileMenu();
+    }
+  }
+});
