@@ -16,3 +16,80 @@ body {
   background-image: linear-gradient(to right, var(--color-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px);
   background-size: 100px 100px;
 }
+
+.map-grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background-image:
+    linear-gradient(rgba(17, 63, 40, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 63, 40, 0.13) 1px, transparent 1px);
+  background-size: 52px 52px;
+  animation: mapGridMove 28s linear infinite;
+}
+
+.map-lines-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(93, 64, 55, 0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 55%, rgba(17, 63, 40, 0.16) 0 2px, transparent 3px),
+    radial-gradient(circle at 45% 75%, rgba(93, 64, 55, 0.14) 0 2px, transparent 3px),
+    linear-gradient(35deg, transparent 48%, rgba(17, 63, 40, 0.12) 49%, rgba(17, 63, 40, 0.12) 51%, transparent 52%),
+    linear-gradient(145deg, transparent 48%, rgba(93, 64, 55, 0.10) 49%, rgba(93, 64, 55, 0.10) 51%, transparent 52%);
+  background-size:
+    420px 420px,
+    520px 520px,
+    460px 460px,
+    360px 360px,
+    480px 480px;
+  animation: mapLinesFloat 36s linear infinite;
+}
+
+@keyframes mapGridMove {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 52px 52px, 52px 52px;
+  }
+}
+
+@keyframes mapLinesFloat {
+  from {
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      120px 80px,
+      -100px 140px,
+      90px -120px,
+      160px 160px,
+      -140px 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-grid-bg,
+  .map-lines-bg {
+    opacity: 0.14;
+    animation-duration: 42s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-grid-bg,
+  .map-lines-bg {
+    animation: none;
+  }
+}
