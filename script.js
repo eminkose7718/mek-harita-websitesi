@@ -197,7 +197,7 @@ const modals = {
             </div>
             <div class="flex items-center gap-4 text-gray-800 bg-gray-50 p-4 border border-gray-200 rounded-sm">
               <i data-lucide="mail" class="text-primary w-[24px] h-[24px]"></i>
-              <span class="font-medium">mekharitaofis@gmail.com</span>
+              <span class="font-medium">info@mekharita.com.tr</span>
             </div>
             <div class="flex items-center gap-4 text-gray-800 bg-gray-50 p-4 border border-gray-200 rounded-sm">
               <i data-lucide="map-pin" class="text-primary w-[24px] h-[24px]"></i>
