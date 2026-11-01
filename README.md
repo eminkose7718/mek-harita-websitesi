@@ -1,20 +1,41 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# MEK Harita & Mühendislik — Web Sitesi
 
-# Run and deploy your AI Studio app
+Yalova merkezli MEK Harita & Mühendislik'in kurumsal web sitesi.
+Kaynak: [mekharita.com.tr](https://mekharita.com.tr/)
 
-This contains everything you need to run your app locally.
+## Teknoloji
 
-View your app in AI Studio: https://ai.studio/apps/f12748a3-475c-479d-b5a1-e99689715a4b
+- [Vite](https://vite.dev/) — geliştirme sunucusu ve production build
+- [Tailwind CSS v4](https://tailwindcss.com/) — build sırasında derlenir (`@tailwindcss/vite`)
+- [Lucide](https://lucide.dev/) — yalnızca kullanılan ikonlar paketlenir
 
-## Run Locally
+Tüm bağımlılıklar `package.json` içinde sabit sürümlüdür.
 
-**Prerequisites:**  Node.js
+## Dosya yapısı
 
+| Dosya | İçerik |
+| --- | --- |
+| `index.html` | Tüm sayfa içeriği (ana sayfa + Kurumsal, Hizmetler, Teknik Altyapı, Çalışma Alanları, SSS, İletişim panelleri), SEO etiketleri |
+| `script.js` | Modal panelleri, mobil menü, SSS, teklif formu davranışı |
+| `style.css` | Tailwind girişi, marka renkleri (`@theme`) ve arka plan animasyonları |
+| `public/` | Olduğu gibi kopyalanan dosyalar: `robots.txt`, `sitemap.xml`, `favicon.svg`, **`logo.png`** |
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Çalıştırma
+
+Gereksinim: Node.js 20+
+
+```bash
+npm install
+npm run dev       # http://localhost:3000
+npm run build     # dist/ klasörüne production çıktısı
+npm run preview   # build çıktısını yerelde önizle
+```
+
+`dist/` klasörü herhangi bir statik barındırmaya (Netlify, Vercel, cPanel vb.) yüklenebilir.
+
+## Notlar
+
+- **Logo:** Site `public/logo.png` dosyasını kullanır. Dosya yoksa üst menüde yazılı logo gösterilir.
+- **Bölüm bağlantıları:** Her panel doğrudan açılabilir, ör. `https://mekharita.com.tr/#hizmetler`, `#iletisim`, `#sss`.
+- **Teklif formu:** Sitenin bir form sunucusu yoktur. Form doldurulduğunda talep hazır bir WhatsApp mesajına
+  dönüştürülür (yedek olarak e-posta bağlantısı sunulur); mesaj kullanıcı WhatsApp'ta "Gönder"e bastığında iletilir.

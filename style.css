@@ -1,9 +1,15 @@
+@import 'tailwindcss';
+
 @theme {
   --color-primary: #113f28;
   --color-primary-dark: #0a291a;
   --color-accent: #5d4037;
   --color-bg-light: #f8fbf9;
   --color-grid: #e2e8e5;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -92,4 +98,21 @@ body {
   .map-lines-bg {
     animation: none;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* SSS: <details> açıkken ok simgesini döndür */
+details[open] > summary .faq-chevron {
+  transform: rotate(180deg);
+}
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
 }
