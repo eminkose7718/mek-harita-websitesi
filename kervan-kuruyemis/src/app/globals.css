@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --color-kervan: #b52530;
+  --color-kervan-dark: #8f1b24;
+  --color-cream: #f8f5f0;
+  --color-walnut: #38251e;
+  --color-apricot: #e9a044;
+  --color-charcoal: #191919;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection { background: var(--color-kervan); color: #fff; }
+
+/* ---------- 3D hotspots ---------- */
+.hotspot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+}
+.hotspot-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(181, 37, 48, 0.85), 0 0 18px rgba(255, 180, 120, 0.8);
+  position: relative;
+}
+.hotspot-dot::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.hotspot-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: rgba(25, 25, 25, 0.72);
+  backdrop-filter: blur(8px);
+  padding: 5px 10px;
+  border-radius: 999px;
+  transform: translateX(-4px);
+  opacity: 0.0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.hotspot:hover .hotspot-label,
+.hotspot:focus-visible .hotspot-label { opacity: 1; transform: translateX(0); }
+@media (pointer: coarse) { .hotspot-label { opacity: 1; transform: none; } }
+@keyframes ping { 75%, 100% { transform: scale(1.8); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hotspot-dot::after { animation: none; } }
+
+/* ---------- glass UI ---------- */
+.glass {
+  background: rgba(20, 16, 14, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.glass-light {
+  background: rgba(248, 245, 240, 0.86);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(56, 37, 30, 0.08);
+}
+
+/* text reveal helper (GSAP animates .reveal-word) */
+.reveal-line { display: block; overflow: hidden; }
+.reveal-word { display: inline-block; will-change: transform; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border-radius: 999px; padding: .85rem 1.4rem; font-weight: 700; font-size: .95rem;
+  background: var(--color-kervan); color: #fff;
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+  box-shadow: 0 10px 30px -10px rgba(181,37,48,.6);
+}
+.btn-primary:hover { background: var(--color-kervan-dark); transform: translateY(-1px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border-radius: 999px; padding: .85rem 1.4rem; font-weight: 700; font-size: .95rem;
+  border: 1px solid currentColor; transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+.btn-ghost:hover { transform: translateY(-1px); }
