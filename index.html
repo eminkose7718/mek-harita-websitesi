@@ -2,19 +2,23 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>MEK Harita & Mühendislik | Yalova Harita Mühendisliği ve Ölçüm Hizmetleri</title>
   <meta name="description" content="MEK Harita & Mühendislik; Yalova’da aplikasyon, arazi ölçümü, parsel sınır tespiti, GNSS ölçümü, kübaj hesabı, vaziyet planı ve inşaat ölçüm hizmetleri sunar." />
-  <meta name="theme-color" content="#113f28" />
+  <meta name="theme-color" content="#0A291A" />
   <link rel="canonical" href="https://mekharita.com.tr/" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <meta property="og:title" content="MEK Harita & Mühendislik" />
-  <meta property="og:description" content="Ölçüde Hassas, Çözümde Güçlü." />
+  <meta property="og:description" content="Ölçüde Hassas, Çözümde Güçlü. Yalova’da harita mühendisliği, aplikasyon, parsel sınır tespiti ve inşaat ölçüm hizmetleri." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mekharita.com.tr/" />
   <meta property="og:locale" content="tr_TR" />
   <meta property="og:site_name" content="MEK Harita & Mühendislik" />
+  <meta property="og:image" content="https://mekharita.com.tr/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <script type="application/ld+json">
   {
@@ -24,6 +28,7 @@
     "slogan": "Ölçüde Hassas, Çözümde Güçlü.",
     "description": "Yalova ve çevresinde aplikasyon, arazi ölçümü, parsel sınır tespiti, halihazır harita, kot-kübaj hesapları, vaziyet planı ve teknik danışmanlık hizmetleri.",
     "url": "https://mekharita.com.tr/",
+    "image": "https://mekharita.com.tr/og-image.png",
     "telephone": "+905458953918",
     "email": "info@mekharita.com.tr",
     "address": { "@type": "PostalAddress", "addressLocality": "Yalova", "addressCountry": "TR" },
@@ -35,487 +40,813 @@
   }
   </script>
 
-  <script type="module" src="/script.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </head>
-<body class="bg-bg-light antialiased text-gray-900">
+<body class="bg-bg-light text-graphite antialiased">
+  <a href="#main" class="skip-link">İçeriğe geç</a>
 
-  <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-[80px]">
+  <!-- ================= ÜST MENÜ ================= -->
+  <header id="siteHeader" class="site-header">
+    <div class="container-x flex items-center justify-between h-[72px] gap-4">
+      <a href="#anasayfa" class="flex items-center gap-3 shrink-0 rounded-sm" aria-label="MEK Harita & Mühendislik — Ana Sayfa">
+        <!-- Logo: public/logo.png. Dosya yoksa yazılı logo gösterilir. -->
+        <img data-logo src="/logo.png" alt="" width="180" height="52" class="h-[40px] md:h-[48px] w-auto object-contain" />
+        <span data-logo-text class="hidden font-extrabold text-lg md:text-xl text-primary tracking-tight">MEK Harita & Mühendislik</span>
+      </a>
 
-        <a href="#" class="flex-shrink-0 flex items-center h-full rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="MEK Harita & Mühendislik — Ana Sayfa">
-          <!-- Logo dosyası public/logo.png olarak eklenmelidir; yoksa yazılı logo gösterilir. -->
-          <img id="siteLogo" src="/logo.png" alt="" width="180" height="56" class="h-[44px] md:h-[56px] w-auto object-contain mr-4" />
-          <span id="siteLogoText" class="hidden font-bold text-xl md:text-2xl text-primary tracking-tight">
-            MEK Harita & Mühendislik
-          </span>
-        </a>
+      <nav class="hidden xl:block" aria-label="Ana menü">
+        <ul class="flex items-center gap-1" data-nav>
+          <li><a href="#anasayfa" class="nav-link">Ana Sayfa</a></li>
+          <li><a href="#kurumsal" class="nav-link">Kurumsal</a></li>
+          <li><a href="#hizmetler" class="nav-link">Hizmetler</a></li>
+          <li><a href="#arazi-3d" class="nav-link">3D Deneyim</a></li>
+          <li><a href="#teknik-altyapi" class="nav-link">Teknik Altyapı</a></li>
+          <li><a href="#calisma-alanlari" class="nav-link">Çalışma Alanları</a></li>
+          <li><a href="#sss" class="nav-link">SSS</a></li>
+          <li><a href="#iletisim" class="nav-link">İletişim</a></li>
+        </ul>
+      </nav>
 
-        <nav class="hidden md:flex space-x-6 lg:space-x-8" aria-label="Ana menü">
-          <a href="#" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus-visible:text-primary focus-visible:underline transition-colors text-sm lg:text-base">Ana Sayfa</a>
-          <a href="#kurumsal" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus-visible:text-primary focus-visible:underline transition-colors text-sm lg:text-base">Kurumsal</a>
-          <a href="#hizmetler" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus-visible:text-primary focus-visible:underline transition-colors text-sm lg:text-base">Hizmetler</a>
-          <a href="#teknik-altyapi" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus-visible:text-primary focus-visible:underline transition-colors text-sm lg:text-base">Teknik Altyapı</a>
-          <a href="#calisma-alanlari" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus-visible:text-primary focus-visible:underline transition-colors text-sm lg:text-base">Çalışma Alanları</a>
-          <a href="#sss" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus-visible:text-primary focus-visible:underline transition-colors text-sm lg:text-base">SSS</a>
-          <a href="#iletisim" class="text-gray-800 hover:text-primary font-semibold focus:outline-none focus-visible:text-primary focus-visible:underline transition-colors text-sm lg:text-base">İletişim</a>
-        </nav>
-
-        <div class="md:hidden flex items-center">
-          <button id="mobileMenuBtn" type="button" class="text-gray-800 p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded bg-gray-50 border border-gray-200" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobileMenu">
-            <i data-lucide="menu" id="menuIcon"></i>
-            <i data-lucide="x" id="closeIcon" class="hidden"></i>
-          </button>
-        </div>
+      <div class="flex items-center gap-2">
+        <a href="#iletisim" class="btn btn-primary hidden sm:inline-flex !py-2.5">Teklif Alın</a>
+        <button id="menuBtn" type="button" class="xl:hidden p-2.5 rounded-sm border border-gray-200 bg-white text-graphite" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobileMenu">
+          <i data-lucide="menu" data-menu-open></i><i data-lucide="x" data-menu-close class="hidden"></i>
+        </button>
       </div>
     </div>
-
-    <!-- Mobil Menü -->
-    <nav id="mobileMenu" class="hidden md:hidden bg-white border-b border-gray-200 absolute w-full shadow-lg" aria-label="Mobil menü">
-      <div class="px-4 py-2 space-y-1">
-        <a href="#" class="block w-full px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 focus:outline-none focus-visible:text-primary">Ana Sayfa</a>
-        <a href="#kurumsal" class="block w-full px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 focus:outline-none focus-visible:text-primary">Kurumsal</a>
-        <a href="#hizmetler" class="block w-full px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 focus:outline-none focus-visible:text-primary">Hizmetler</a>
-        <a href="#teknik-altyapi" class="block w-full px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 focus:outline-none focus-visible:text-primary">Teknik Altyapı</a>
-        <a href="#calisma-alanlari" class="block w-full px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 focus:outline-none focus-visible:text-primary">Çalışma Alanları</a>
-        <a href="#sss" class="block w-full px-4 py-4 text-base font-bold text-gray-900 border-b border-gray-100 focus:outline-none focus-visible:text-primary">SSS</a>
-        <a href="#iletisim" class="block w-full px-4 py-4 text-base font-bold text-gray-900 focus:outline-none focus-visible:text-primary">İletişim</a>
-      </div>
+    <nav id="mobileMenu" class="mobile-menu hidden xl:hidden" aria-label="Mobil menü">
+      <ul class="container-x py-3" data-nav>
+        <li><a href="#anasayfa" class="mobile-link">Ana Sayfa</a></li>
+        <li><a href="#kurumsal" class="mobile-link">Kurumsal</a></li>
+        <li><a href="#hizmetler" class="mobile-link">Hizmetler</a></li>
+        <li><a href="#arazi-3d" class="mobile-link">3D Arazi Gezgini</a></li>
+        <li><a href="#gnss-demo" class="mobile-link">GNSS Ölçüm Demosu</a></li>
+        <li><a href="#arsa-demo" class="mobile-link">Parsel & Bina Oturumu</a></li>
+        <li><a href="#drone-demo" class="mobile-link">Drone & Fotogrametri</a></li>
+        <li><a href="#teknik-altyapi" class="mobile-link">Teknik Altyapı</a></li>
+        <li><a href="#calisma-alanlari" class="mobile-link">Çalışma Alanları</a></li>
+        <li><a href="#projeler" class="mobile-link">Projeler</a></li>
+        <li><a href="#sss" class="mobile-link">SSS</a></li>
+        <li><a href="#iletisim" class="mobile-link">İletişim</a></li>
+      </ul>
     </nav>
   </header>
 
   <main id="main">
-    <section class="relative bg-white py-16 md:py-28 overflow-hidden border-b border-gray-200 flex flex-col items-center justify-center min-h-[75vh]">
-      <div class="absolute inset-0 pointer-events-none opacity-50 hero-bg"></div>
+    <!-- ================= HERO: SİNEMATİK 3D GİRİŞ ================= -->
+    <section id="anasayfa" class="hero" data-scene-root="hero" aria-labelledby="heroTitle">
+      <div class="absolute inset-0" data-scene>
+        <div class="scene-fallback hero-fallback map-grid" data-fallback><span class="sr-only">3D arazi modeli</span></div>
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
 
-      <div class="map-grid-bg" aria-hidden="true"></div>
-      <div class="map-lines-bg" aria-hidden="true"></div>
+      <!-- Giriş animasyonu arayüzü -->
+      <div class="hero-intro-ui" aria-live="polite">
+        <div class="hero-caption" data-hero-caption>
+          <p class="eyebrow text-cyan" data-hero-caption-index>01 / 05</p>
+          <p class="text-xl md:text-2xl font-bold text-warm mt-2" data-hero-caption-title>Arazi Modeli</p>
+          <p class="text-sm md:text-base text-warm/75 mt-1 max-w-md" data-hero-caption-text>Temsili 3D arazi modeli yükleniyor…</p>
+        </div>
+        <div class="hero-progress-wrap">
+          <div class="hero-progress"><span data-hero-progress></span></div>
+          <button type="button" class="btn btn-outline-light !py-2 !px-4 text-sm" data-hero-skip>
+            Animasyonu Atla <i data-lucide="skip-forward" class="w-4 h-4" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
 
-      <div class="hidden md:block absolute top-[10%] left-[5%] text-xs font-mono text-gray-300 font-medium tracking-wider pointer-events-none select-none" aria-hidden="true">40.654895° K</div>
-      <div class="hidden md:block absolute bottom-[10%] right-[5%] text-xs font-mono text-gray-300 font-medium text-right tracking-wider pointer-events-none select-none" aria-hidden="true">29.284186° D</div>
+      <!-- Firma tanıtımı (her zaman DOM'da; giriş sırasında görsel olarak gizlenir) -->
+      <div class="hero-content container-x">
+        <div class="max-w-3xl">
+          <div data-hero-logo hidden class="mb-6 inline-flex bg-warm/95 rounded-sm px-4 py-3">
+            <img src="/logo.png" alt="MEK Harita & Mühendislik logosu" class="h-12 w-auto" data-hero-logo-img />
+          </div>
+          <p class="eyebrow text-cyan mb-4">Yalova · Harita Mühendisliği</p>
+          <h1 id="heroTitle" class="text-[2.35rem] leading-[1.05] sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-warm">
+            MEK HARİTA &amp; MÜHENDİSLİK
+          </h1>
+          <p class="mt-4 text-xl md:text-2xl font-serif italic text-[#d9c6bd]">“Ölçüde Hassas, Çözümde Güçlü.”</p>
+          <p class="mt-6 text-base md:text-lg text-warm/80 max-w-2xl leading-relaxed">
+            Yalova ve çevresinde harita mühendisliği, aplikasyon, parsel sınır tespiti ve teknik danışmanlık hizmetlerinde güvenilir veri üretimi ve resmi süreçlere uygun çözümler sunuyoruz.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#hizmetler" class="btn btn-light w-full sm:w-auto">Hizmetlerimizi Keşfedin <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></a>
+            <a href="#arazi-3d" class="btn btn-outline-light flex-1 sm:flex-none !px-3 sm:!px-5"><i data-lucide="box" class="w-4 h-4" aria-hidden="true"></i> 3D Proje Deneyimi</a>
+            <a href="#iletisim" class="btn btn-outline-light flex-1 sm:flex-none !px-3 sm:!px-5">Teklif Alın</a>
+          </div>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-warm/75">
+            <li class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan" aria-hidden="true"></i> Hassas Ölçüm</li>
+            <li class="flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4 text-cyan" aria-hidden="true"></i> Güvenilir Teknik Veri</li>
+            <li class="flex items-center gap-2"><i data-lucide="map" class="w-4 h-4 text-cyan" aria-hidden="true"></i> Resmi Süreçlere Uygun</li>
+          </ul>
+        </div>
+      </div>
 
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center w-full">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary tracking-tight mb-4">
-          MEK Harita & Mühendislik
-        </h1>
+      <div class="hero-meta">
+        <span class="demo-badge"><i data-lucide="info" class="w-3.5 h-3.5" aria-hidden="true"></i> Temsili 3D arazi modeli<span class="hidden sm:inline">&nbsp;· düşey abartma 1,5×</span></span>
+        <button type="button" class="hero-replay" data-hero-replay hidden>
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5" aria-hidden="true"></i> Tekrar oynat
+        </button>
+      </div>
+    </section>
 
-        <p class="text-xl md:text-2xl font-serif italic text-accent mb-10">
-          “Ölçüde Hassas, Çözümde Güçlü.”
-        </p>
+    <!-- ================= KAYDIRMALI ANLATI ================= -->
+    <section id="surec" class="story" data-scene-root="story" aria-labelledby="storyTitle">
+      <div class="story-sticky">
+        <div class="absolute inset-0" data-scene>
+          <div class="scene-fallback map-grid" data-fallback></div>
+        </div>
+        <div class="story-shade" aria-hidden="true"></div>
+        <ol class="story-dots" aria-hidden="true">
+          <li data-chapter-dot></li><li data-chapter-dot></li><li data-chapter-dot></li><li data-chapter-dot></li><li data-chapter-dot></li>
+        </ol>
+        <a href="#kurumsal" class="story-skip">Bu bölümü atla <i data-lucide="chevrons-down" class="w-4 h-4" aria-hidden="true"></i></a>
+      </div>
+      <div class="story-chapters">
+        <article class="story-chapter" data-chapter>
+          <div class="story-card">
+            <p class="eyebrow text-cyan">Mühendislik Süreci · 01</p>
+            <h2 id="storyTitle" class="text-3xl md:text-4xl font-extrabold mt-3 text-warm">Araziden yapıya: ölçümün yolculuğu</h2>
+            <p class="mt-4 text-warm/80 leading-relaxed"><strong class="text-warm">Arazi modeli.</strong> Her proje arazinin kendisini tanımakla başlar. Topoğrafya, eş yükselti eğrileri ve kot farkları, sonraki tüm kararların altlığıdır.</p>
+          </div>
+        </article>
+        <article class="story-chapter" data-chapter>
+          <div class="story-card">
+            <p class="eyebrow text-cyan">02 · GNSS / GPS Ölçümleri</p>
+            <h3 class="text-2xl md:text-3xl font-bold mt-3 text-warm">Noktaları koordinatlandırmak</h3>
+            <p class="mt-4 text-warm/80 leading-relaxed">GNSS alıcıları ve saha ölçüm yöntemleriyle noktaların konumu ve kotu belirlenir. Ölçülen her nokta, haritanın ve projenin referansı olur.</p>
+          </div>
+        </article>
+        <article class="story-chapter" data-chapter>
+          <div class="story-card">
+            <p class="eyebrow text-cyan">03 · Parsel Sınırı & Aplikasyon</p>
+            <h3 class="text-2xl md:text-3xl font-bold mt-3 text-warm">Sınırları ve projeyi sahaya aktarmak</h3>
+            <p class="mt-4 text-warm/80 leading-relaxed">Parsel köşeleri kadastro verilerine göre tespit edilir; projedeki bina köşeleri koordinatlarıyla sahaya aplike edilerek işaretlenir.</p>
+          </div>
+        </article>
+        <article class="story-chapter" data-chapter>
+          <div class="story-card">
+            <p class="eyebrow text-cyan">04 · Bina Oturumu & İnşaat Ölçümleri</p>
+            <h3 class="text-2xl md:text-3xl font-bold mt-3 text-warm">Ölçümden yapıya</h3>
+            <p class="mt-4 text-warm/80 leading-relaxed">Temel, aks ve kot kontrolleriyle yapının projeye uygun ilerlediği doğrulanır. Görselleştirme kavramsaldır; gösterilen bina örnek bir hacimdir.</p>
+          </div>
+        </article>
+        <article class="story-chapter" data-chapter>
+          <div class="story-card">
+            <p class="eyebrow text-cyan">05 · Drone & Fotogrametri</p>
+            <h3 class="text-2xl md:text-3xl font-bold mt-3 text-warm">Havadan veri üretimi</h3>
+            <p class="mt-4 text-warm/80 leading-relaxed">Planlı uçuşlarla alınan hava fotoğraflarından nokta bulutu, yüzey modeli ve ortofoto gibi ürünler elde edilebilir. Bu sahne kavramsal bir anlatımdır.</p>
+            <a href="#drone-demo" class="inline-flex items-center gap-2 mt-5 text-cyan font-semibold">Fotogrametri iş akışını inceleyin <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-        <p class="text-base md:text-lg text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
-          Yalova ve çevresinde harita mühendisliği, aplikasyon, parsel sınır tespiti ve teknik danışmanlık hizmetlerinde güvenilir veri üretimi ve resmi süreçlere uygun çözümler sunuyoruz.
-        </p>
-
-        <ul class="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-6 mb-12">
-          <li class="flex items-center justify-center gap-2 text-sm md:text-base font-semibold text-gray-800 bg-white px-5 py-3 border border-gray-200 rounded-sm shadow-sm">
-            <i data-lucide="shield-check" class="text-primary w-[22px] h-[22px]" aria-hidden="true"></i> Hassas Ölçüm
-          </li>
-          <li class="flex items-center justify-center gap-2 text-sm md:text-base font-semibold text-gray-800 bg-white px-5 py-3 border border-gray-200 rounded-sm shadow-sm">
-            <i data-lucide="calculator" class="text-primary w-[22px] h-[22px]" aria-hidden="true"></i> Güvenilir Teknik Veri
-          </li>
-          <li class="flex items-center justify-center gap-2 text-sm md:text-base font-semibold text-gray-800 bg-white px-5 py-3 border border-gray-200 rounded-sm shadow-sm">
-            <i data-lucide="map" class="text-primary w-[22px] h-[22px]" aria-hidden="true"></i> Resmi Süreçlere Uygun
-          </li>
-        </ul>
-
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="#hizmetler" class="bg-primary hover:bg-primary-dark text-white font-bold py-3.5 px-8 rounded-sm transition-colors text-lg border-2 border-transparent shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-            Hizmetlerimizi İnceleyin
-          </a>
-          <a href="#iletisim" class="bg-white hover:bg-gray-50 text-primary font-bold py-3.5 px-8 rounded-sm transition-colors text-lg border-2 border-primary shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-            Teklif Alın
-          </a>
+    <!-- ================= KURUMSAL ================= -->
+    <section id="kurumsal" class="section bg-warm" aria-labelledby="kurumsalTitle">
+      <div class="container-x grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-5" data-reveal>
+          <p class="eyebrow text-accent">Kurumsal</p>
+          <h2 id="kurumsalTitle" class="section-title">Hakkımızda</h2>
+          <p class="mt-6 text-lg leading-relaxed text-graphite/80"><strong class="text-primary">MEK Harita & Mühendislik</strong>; mühendislik hassasiyeti, doğru ölçüm, güvenilir veri üretimi ve sahadan ofise bütüncül teknik hizmet anlayışıyla çalışan bir harita mühendisliği firmasıdır. Yalova ve çevresinde aplikasyon, arazi ölçümü, parsel sınır tespiti, halihazır harita, kot-kübaj hesapları, vaziyet planı ve teknik danışmanlık alanlarında çözüm sunar.</p>
+        </div>
+        <div class="lg:col-span-7 space-y-6">
+          <div class="grid sm:grid-cols-2 gap-5" data-reveal>
+            <div class="card">
+              <p class="eyebrow text-accent">Misyonumuz</p>
+              <p class="mt-3 text-graphite/80 leading-relaxed">Yalova ve çevresinde harita mühendisliği hizmetlerini; doğru ölçüm, güvenilir veri üretimi ve resmi süreçlere uygun teknik dokümantasyon anlayışıyla sunmak.</p>
+            </div>
+            <div class="card">
+              <p class="eyebrow text-accent">Vizyonumuz</p>
+              <p class="mt-3 text-graphite/80 leading-relaxed">Yalova ve çevresinde güvenilir, ulaşılabilir ve mühendislik disiplininden taviz vermeyen; doğru ölçüm ve teknik hizmet anlayışıyla tercih edilen bir harita mühendisliği firması olmak.</p>
+            </div>
+          </div>
+          <div data-reveal>
+            <h3 class="font-bold text-primary text-lg">Değerlerimiz</h3>
+            <ul class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-3">
+              <li class="value-chip">Hassasiyet</li>
+              <li class="value-chip">Güvenilirlik</li>
+              <li class="value-chip">Şeffaf iletişim</li>
+              <li class="value-chip">Teknik doğruluk</li>
+              <li class="value-chip">Zamanında teslim</li>
+              <li class="value-chip">Resmi süreçlere uygunluk</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="py-12 md:py-16 bg-gray-50 border-b border-gray-200" aria-label="Bölümler">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <a href="#kurumsal" class="bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
-              <i data-lucide="building-2" class="w-[32px] h-[32px]" aria-hidden="true"></i>
-            </div>
-            <h2 class="text-xl font-bold text-gray-900 mb-3">Kurumsal</h2>
-            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed">Yalova ve çevresinde mühendislik disiplini ve güvenilir teknik hizmet anlayışı.</p>
-            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
-          </a>
+    <!-- ================= HİZMETLER ================= -->
+    <section id="hizmetler" class="section bg-bg-light" aria-labelledby="hizmetlerTitle">
+      <div class="container-x">
+        <div class="max-w-3xl" data-reveal>
+          <p class="eyebrow text-accent">Hizmetler</p>
+          <h2 id="hizmetlerTitle" class="section-title">Sahadan ofise harita mühendisliği hizmetleri</h2>
+          <p class="mt-4 text-lg text-graphite/75">Aplikasyon, sayısal halihazır harita, arazi ölçümü, parsel sınır tespiti ve teknik çözümler.</p>
+        </div>
 
-          <a href="#hizmetler" class="bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
-              <i data-lucide="layout-grid" class="w-[32px] h-[32px]" aria-hidden="true"></i>
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-services>
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="stakeout"></div>
+            <h3 class="service-title"><i data-lucide="crosshair" aria-hidden="true"></i> Aplikasyon Hizmetleri</h3>
+            <p class="service-text">Projede yer alan yapı, sınır veya teknik bilgilerin sahaya doğru şekilde aktarılması için uygulanır. İnşaat öncesi konum doğruluğu ve resmi sürece uygunluk açısından önemlidir.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>Aplikasyon; tapu, kadastro veya onaylı projede koordinatlarla tanımlanmış noktaların arazide işaretlenmesidir. Parsel köşeleri, bina köşeleri ve akslar sahaya bu yöntemle aktarılır.</p>
+              <p>Ölçüm, bilinen koordinatlı referans noktalarına dayanır. Tasarım koordinatları ile sahada işaretlenen noktalar kontrol edilerek kayıt altına alınır.</p>
+            </details>
+            <div class="service-actions">
+              <a href="#arsa-demo" data-parcel-link="aplikasyon" class="link-arrow">Aplikasyon demosu</a>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="Aplikasyon">Teklif iste</button>
             </div>
-            <h2 class="text-xl font-bold text-gray-900 mb-3">Hizmetler</h2>
-            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed">Aplikasyon, sayısal halihazır harita, arazi ölçümü, parsel sınır tespiti ve teknik çözümler.</p>
-            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
-          </a>
+          </article>
 
-          <a href="#teknik-altyapi" class="bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
-              <i data-lucide="cpu" class="w-[32px] h-[32px]" aria-hidden="true"></i>
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="map"></div>
+            <h3 class="service-title"><i data-lucide="map" aria-hidden="true"></i> Sayısal Halihazır Harita Ölçümleri</h3>
+            <p class="service-text">Arazinin mevcut durumunu, yapılaşma bilgilerini, kotları ve detayları teknik çizim ortamına aktarmak için yapılır.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>Halihazır harita; arazideki yapılar, yollar, duvarlar, ağaçlar, altyapı elemanları ve kot bilgileri gibi mevcut detayların ölçülerek sayısal ortamda çizilmesidir.</p>
+              <p>Ölçülen noktalardan üretilen eş yükselti eğrileri arazinin topoğrafyasını gösterir ve proje tasarımına altlık oluşturur.</p>
+            </details>
+            <div class="service-actions">
+              <a href="#arazi-3d" class="link-arrow">Topografik görünüm</a>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="Halihazır Harita">Teklif iste</button>
             </div>
-            <h2 class="text-xl font-bold text-gray-900 mb-3">Teknik Altyapı</h2>
-            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed">GNSS / GPS ölçüm altyapısı ve teknik çizim-hesaplama yazılımları.</p>
-            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
-          </a>
+          </article>
 
-          <a href="#calisma-alanlari" class="bg-white border border-gray-200 p-8 rounded-sm shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-            <div class="group-hover:scale-105 transition-transform origin-left text-primary mb-5">
-              <i data-lucide="briefcase" class="w-[32px] h-[32px]" aria-hidden="true"></i>
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="parcel"></div>
+            <h3 class="service-title"><i data-lucide="map-pin" aria-hidden="true"></i> Arazi Ölçümü ve Parsel Sınır Tespiti</h3>
+            <p class="service-text">Mülkiyet sınırlarının, tapu ve kadastro verilerine göre sahada hassas şekilde belirlenmesi işlemidir.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>Parsel sınır tespiti; kadastro kayıtlarındaki köşe koordinatlarının arazide bulunarak işaretlenmesi ve mevcut durumla karşılaştırılmasıdır.</p>
+              <p>Alım-satım öncesinde, sınır anlaşmazlıklarında veya yapılaşma planlamasında parselin sahadaki konumunun bilinmesini sağlar.</p>
+            </details>
+            <div class="service-actions">
+              <a href="#arsa-demo" data-parcel-link="parsel" class="link-arrow">Parsel demosu</a>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="Parsel Sınır Tespiti">Teklif iste</button>
             </div>
-            <h2 class="text-xl font-bold text-gray-900 mb-3">Çalışma Alanları</h2>
-            <p class="text-gray-600 font-medium text-sm mb-8 flex-grow leading-relaxed">Konut projeleri, arsa ölçümleri, imar süreçleri ve hafriyat hesaplamaları.</p>
-            <span class="text-primary font-bold text-sm tracking-wide inline-flex items-center gap-1 group-hover:gap-2 transition-all">Detayları Gör <span aria-hidden="true">&rarr;</span></span>
-          </a>
+          </article>
+
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="cutfill"></div>
+            <h3 class="service-title"><i data-lucide="calculator" aria-hidden="true"></i> Kot, Kübaj ve Hafriyat Hesapları</h3>
+            <p class="service-text">Kazı, dolgu, hafriyat ve arazi kot farklarının teknik olarak hesaplanması için kullanılır.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>Kübaj hesabı; mevcut arazi yüzeyi ile proje (tasarım) yüzeyi arasındaki hacim farkının bulunmasıdır. Tasarım kotunun üzerinde kalan kısım kazı, altında kalan kısım dolgu olarak hesaplanır.</p>
+              <p>Arazi kazı öncesi ve gerektiğinde sonrası ölçülerek yüzey modelleri oluşturulur; hacimler bu modeller üzerinden hesaplanır.</p>
+            </details>
+            <div class="service-actions">
+              <a href="#kubaj-demo" class="link-arrow">Kübaj hesap örneği</a>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="Kot / Kübaj">Teklif iste</button>
+            </div>
+          </article>
+
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="construction"></div>
+            <h3 class="service-title"><i data-lucide="hard-hat" aria-hidden="true"></i> İnşaat Aks, Kot ve Kontrol Ölçümleri</h3>
+            <p class="service-text">İnşaat sürecinde konum, kot, aks ve uygulama kontrollerinin teknik doğrulukla yapılmasını sağlar.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>İnşaat süresince temel, kolon, perde ve döşeme gibi elemanların projedeki aks ve kotlara uygun yapılıp yapılmadığı ölçümlerle kontrol edilir.</p>
+              <p>Aks aplikasyonu, kot verme ve uygulama sonrası kontrol ölçümleri, hataların erken aşamada fark edilmesine yardımcı olur.</p>
+            </details>
+            <div class="service-actions">
+              <a href="#arsa-demo" data-parcel-link="bina" class="link-arrow">Bina oturumu demosu</a>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="İnşaat Ölçüm Kontrolü">Teklif iste</button>
+            </div>
+          </article>
+
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="gnss"></div>
+            <h3 class="service-title"><i data-lucide="satellite" aria-hidden="true"></i> GNSS / GPS Ölçümleri</h3>
+            <p class="service-text">Konum verilerinin hassas ve güvenilir şekilde elde edilmesi için modern ölçüm ekipmanlarıyla yapılan saha çalışmalarını kapsar.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>GNSS (Küresel Uydu Navigasyon Sistemleri) alıcıları, uydulardan gelen sinyallerle noktaların konumunu belirler.</p>
+              <p>Düzeltme verisi kullanan yöntemlerle (ör. RTK / ağ RTK) konum doğruluğu artırılır. Elde edilen doğruluk; ekipman, yöntem, uydu geometrisi ve saha koşullarına bağlıdır.</p>
+            </details>
+            <div class="service-actions">
+              <a href="#gnss-demo" class="link-arrow">GNSS demosu</a>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="GNSS / GPS Ölçümü">Teklif iste</button>
+            </div>
+          </article>
+
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="siteplan"></div>
+            <h3 class="service-title"><i data-lucide="file-spreadsheet" aria-hidden="true"></i> Vaziyet Planı ve Teknik Raporlama</h3>
+            <p class="service-text">Proje ve resmi süreçlerde kullanılabilecek teknik çizim, rapor ve saha verilerinin düzenlenmesini kapsar.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>Vaziyet planı; yapının parsel içindeki konumunu, komşu sınırlara ve yola olan mesafelerini ve kotlarını gösteren teknik çizimdir.</p>
+              <p>Saha ölçümlerinden elde edilen veriler, proje ve resmi başvurularda kullanılabilecek çizim ve raporlara dönüştürülür.</p>
+            </details>
+            <div class="service-actions">
+              <span></span>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="Vaziyet Planı">Teklif iste</button>
+            </div>
+          </article>
+
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="permit"></div>
+            <h3 class="service-title"><i data-lucide="file-text" aria-hidden="true"></i> İmar ve Ruhsat Süreçlerine Teknik Destek</h3>
+            <p class="service-text">İmar, ruhsat ve belediye süreçlerinde ihtiyaç duyulan teknik çizim, ölçüm ve belge hazırlıklarına destek sağlar.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>İmar ve ruhsat başvurularında istenen harita, ölçüm ve teknik çizimlerin hazırlanmasına destek verilir.</p>
+              <p>Gerekli belgelerin ilgili kurumların istediği biçimde hazırlanmasına yardımcı olunur.</p>
+            </details>
+            <div class="service-actions">
+              <span></span>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="İmar / Ruhsat Desteği">Teklif iste</button>
+            </div>
+          </article>
+
+          <article class="service-card group" data-reveal>
+            <div class="service-art" data-illustration="consult"></div>
+            <h3 class="service-title"><i data-lucide="headset" aria-hidden="true"></i> Teknik Danışmanlık ve Süreç Takibi</h3>
+            <p class="service-text">Harita mühendisliği süreçlerinde teknik yönlendirme, belge takibi ve saha-ofis koordinasyonu sağlar.</p>
+            <details class="service-details">
+              <summary>Detaylı bilgi <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+              <p>Mülk sahipleri, müteahhitler ve proje ekipleri için hangi ölçüm ve belgelerin gerektiği konusunda teknik yönlendirme yapılır.</p>
+              <p>Saha çalışmaları ile ofis süreçleri arasında koordinasyon sağlanarak işin takibi kolaylaştırılır.</p>
+            </details>
+            <div class="service-actions">
+              <span></span>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm" data-quote="Teknik Danışmanlık">Teklif iste</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Kübaj hesap örneği -->
+        <div id="kubaj-demo" class="mt-16 cub-wrap" data-scene-root="cubature" data-cubature aria-labelledby="kubajTitle">
+          <div class="grid lg:grid-cols-12">
+            <div class="lg:col-span-7 relative min-h-[340px] lg:min-h-[480px] bg-[#f1f3ef]">
+              <div class="absolute inset-0 scene-box" data-scene tabindex="0" aria-label="Kazı-dolgu 3D görünümü. Döndürmek için ok tuşlarını, yakınlaştırmak için artı ve eksi tuşlarını kullanın.">
+                <div class="scene-fallback light" data-fallback></div>
+                <div class="gate" data-gate hidden><button type="button" class="btn btn-primary" data-gate-on><i data-lucide="hand" class="w-4 h-4" aria-hidden="true"></i> 3D ile etkileşime geç</button></div>
+                <button type="button" class="gate-off" data-gate-off hidden>Etkileşimi bitir</button>
+              </div>
+              <span class="demo-badge absolute left-3 bottom-3 pointer-events-none">Örnek geometri · düşey abartma 1,5×</span>
+            </div>
+            <div class="lg:col-span-5 p-6 md:p-8 bg-white">
+              <p class="eyebrow text-accent">Etkileşimli örnek</p>
+              <h3 id="kubajTitle" class="text-2xl font-bold text-primary mt-2">Kübaj Hesap Örneği</h3>
+              <p class="mt-3 text-sm text-graphite/75 leading-relaxed">20 m × 20 m'lik bir alanda 5 m aralıklı 25 nokta kotu (örnek değerler) üzerinden, platform kotunu değiştirerek kazı ve dolgu hacmini görün. Hesap üçgenlenmiş yüzey (TIN) yöntemiyle, her üçgende tam formülle yapılır.</p>
+              <label for="cubLevel" class="mt-6 flex justify-between text-sm font-semibold">
+                <span>Platform (tasarım) kotu</span><output data-cub-level-out for="cubLevel" class="font-mono text-primary">100,40 m</output>
+              </label>
+              <input id="cubLevel" type="range" min="98.4" max="102.4" step="0.05" value="100.4" class="w-full mt-2 accent-primary" data-cub-level />
+              <dl class="mt-5 grid grid-cols-2 gap-3 text-sm">
+                <div class="stat light"><dt>Kazı</dt><dd data-cub-cut class="text-[#a1462f]">—</dd></div>
+                <div class="stat light"><dt>Dolgu</dt><dd data-cub-fill class="text-[#2f6d9f]">—</dd></div>
+                <div class="stat light col-span-2"><dt>Net (kazı − dolgu)</dt><dd data-cub-net>—</dd></div>
+                <div class="stat light col-span-2"><dt>Alan</dt><dd data-cub-area>—</dd></div>
+              </dl>
+              <details class="mt-5 text-sm">
+                <summary class="cursor-pointer font-semibold text-primary">Örnek nokta kotları (m)</summary>
+                <div class="overflow-x-auto mt-3"><table class="data-table" data-cub-table></table></div>
+              </details>
+              <p class="note mt-5">Bu hesap, açıkça tanımlanmış örnek geometri için matematiksel olarak doğrudur; gerçek bir proje için onaylı mühendislik sonucu değildir.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3D ARAZİ GEZGİNİ ================= -->
+    <section id="arazi-3d" class="section dark-section" data-scene-root="explorer" aria-labelledby="explorerTitle">
+      <div class="container-x">
+        <div class="max-w-3xl" data-reveal>
+          <p class="eyebrow text-cyan">3D Proje Deneyimi</p>
+          <h2 id="explorerTitle" class="section-title text-warm">Etkileşimli 3D Arazi Gezgini</h2>
+          <p class="mt-4 text-lg text-warm/75">Araziyi döndürün, yakınlaştırın, katmanları değiştirin ve herhangi bir noktaya tıklayarak örnek koordinat ve kot değerlerini inceleyin.</p>
+        </div>
+
+        <div class="mt-10 grid lg:grid-cols-12 gap-5">
+          <div class="lg:col-span-8 relative">
+            <div class="scene-box relative h-[60vh] min-h-[380px] max-h-[720px]" data-scene tabindex="0" aria-label="3D arazi gezgini. Fare veya dokunma ile döndürün; ok tuşları döndürür, Shift ve ok tuşları kaydırır, artı ve eksi yakınlaştırır.">
+              <div class="scene-fallback" data-fallback></div>
+              <div class="gate" data-gate hidden><button type="button" class="btn btn-light" data-gate-on><i data-lucide="hand" class="w-4 h-4" aria-hidden="true"></i> 3D ile etkileşime geç</button></div>
+              <button type="button" class="gate-off" data-gate-off hidden>Etkileşimi bitir</button>
+              <div class="scene-tools">
+                <button type="button" class="tool-btn" data-action="zoom-in" aria-label="Yakınlaştır"><i data-lucide="plus" aria-hidden="true"></i></button>
+                <button type="button" class="tool-btn" data-action="zoom-out" aria-label="Uzaklaştır"><i data-lucide="minus" aria-hidden="true"></i></button>
+                <button type="button" class="tool-btn" data-action="reset" aria-label="Kamerayı sıfırla"><i data-lucide="rotate-ccw" aria-hidden="true"></i></button>
+              </div>
+              <span class="demo-badge absolute left-3 bottom-3 pointer-events-none">Temsili 3D Arazi Modeli</span>
+              <div class="legend" data-legend hidden>
+                <span data-legend-min>0 m</span><span class="legend-bar" aria-hidden="true"></span><span data-legend-max>90 m</span>
+              </div>
+            </div>
+            <p class="mt-3 text-sm text-warm/60" data-mode-note></p>
+          </div>
+
+          <aside class="lg:col-span-4 space-y-4" aria-label="Arazi gezgini kontrolleri">
+            <div class="panel">
+              <p class="panel-title">Görselleştirme modu</p>
+              <div class="flex flex-wrap gap-2 mt-3" role="group" aria-label="Görselleştirme modu">
+                <button type="button" class="chip" data-mode="satellite" aria-pressed="false">Uydu stili</button>
+                <button type="button" class="chip" data-mode="topo" aria-pressed="true">Topografik</button>
+                <button type="button" class="chip" data-mode="wireframe" aria-pressed="false">Tel kafes</button>
+                <button type="button" class="chip" data-mode="elevation" aria-pressed="false">Yükseklik</button>
+                <button type="button" class="chip" data-mode="parcel" aria-pressed="false">Parsel</button>
+              </div>
+            </div>
+            <div class="panel">
+              <p class="panel-title">Katmanlar</p>
+              <div class="flex flex-wrap gap-2 mt-3" role="group" aria-label="Katmanlar">
+                <button type="button" class="chip" data-layer="contours" aria-pressed="true">Eş yükselti eğrileri</button>
+                <button type="button" class="chip" data-layer="grid" aria-pressed="false">Ölçü ağı</button>
+                <button type="button" class="chip" data-layer="parcels" aria-pressed="false">Parsel sınırları</button>
+                <button type="button" class="chip" data-layer="points" aria-pressed="true">Ölçüm noktaları</button>
+              </div>
+            </div>
+            <div class="panel" aria-live="polite">
+              <p class="panel-title" data-info-title>Bir nokta seçin</p>
+              <dl class="coord-list mt-3">
+                <div><dt>Yerel Y (doğu)</dt><dd data-info-y>—</dd></div>
+                <div><dt>Yerel X (kuzey)</dt><dd data-info-x>—</dd></div>
+                <div><dt>Kot</dt><dd data-info-h>—</dd></div>
+              </dl>
+              <p class="text-xs text-warm/55 mt-3" data-info-note>Araziye veya turuncu ölçüm noktalarına tıklayın. Değerler temsili modelden okunan örneklerdir.</p>
+            </div>
+            <details class="panel text-sm text-warm/75">
+              <summary class="cursor-pointer font-semibold text-warm">Koordinatlar nasıl okunur?</summary>
+              <ul class="mt-3 space-y-2 list-disc pl-5">
+                <li><strong class="text-warm">Coğrafi koordinat</strong> (enlem/boylam) derece cinsindendir ve metre değildir.</li>
+                <li><strong class="text-warm">Projeksiyonlu koordinat</strong> (ör. TM) metre cinsindendir; Türkiye pratiğinde Y sağa (doğu), X yukarı (kuzey) değeridir.</li>
+                <li><strong class="text-warm">Kot</strong>, noktanın yüksekliğidir (m).</li>
+                <li>Bu modeldeki Y/X değerleri <strong class="text-warm">yerel demo koordinatlarıdır</strong>; herhangi bir resmi koordinat sistemine bağlı değildir.</li>
+              </ul>
+            </details>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GNSS DEMOSU ================= -->
+    <section id="gnss-demo" class="section dark-section border-t border-white/5" data-scene-root="gnss" aria-labelledby="gnssTitle">
+      <div class="container-x">
+        <div class="max-w-3xl" data-reveal>
+          <p class="eyebrow text-cyan">GNSS / Arazi Ölçümü</p>
+          <h2 id="gnssTitle" class="section-title text-warm">Bir ölçüm nasıl veriye dönüşür?</h2>
+          <p class="mt-4 text-lg text-warm/75">GNSS alıcısı ölçüm noktasına kurulur, noktalar sırayla ölçülür ve koordinatlı bir veri seti teknik çizime dönüşür. Sahneyi istediğiniz an döndürebilirsiniz.</p>
+        </div>
+        <div class="mt-10 grid lg:grid-cols-12 gap-5">
+          <div class="lg:col-span-7 relative">
+            <div class="scene-box relative h-[56vh] min-h-[360px] max-h-[640px]" data-scene tabindex="0" aria-label="GNSS ölçüm demosu 3D sahnesi">
+              <div class="scene-fallback" data-fallback></div>
+              <div class="gate" data-gate hidden><button type="button" class="btn btn-light" data-gate-on><i data-lucide="hand" class="w-4 h-4" aria-hidden="true"></i> 3D ile etkileşime geç</button></div>
+              <button type="button" class="gate-off" data-gate-off hidden>Etkileşimi bitir</button>
+              <span class="demo-badge absolute left-3 bottom-3 pointer-events-none">Kavramsal gösterim · örnek değerler</span>
+            </div>
+          </div>
+          <div class="lg:col-span-5 space-y-4">
+            <div class="panel" aria-live="polite">
+              <p class="panel-title" data-gnss-title>1. Yaklaşım</p>
+              <p class="mt-2 text-warm/75 text-sm leading-relaxed min-h-[3.5rem]" data-gnss-text>Kamera ölçüm alanına ve GNSS alıcısına yaklaşıyor.</p>
+              <div class="mt-4 flex gap-2">
+                <button type="button" class="btn btn-light !py-2 !px-4 text-sm" data-gnss-play aria-pressed="false"><i data-lucide="play" data-icon-play class="w-4 h-4" aria-hidden="true"></i><i data-lucide="pause" data-icon-pause class="w-4 h-4 hidden" aria-hidden="true"></i> <span data-label>Oynat</span></button>
+                <button type="button" class="btn btn-outline-light !py-2 !px-4 text-sm" data-gnss-replay><i data-lucide="rotate-ccw" class="w-4 h-4" aria-hidden="true"></i> Baştan</button>
+              </div>
+              <ol class="mt-4 flex flex-wrap gap-1.5" aria-label="Adımlar">
+                <li><button type="button" class="step-chip" data-gnss-step>1 Yaklaşım</button></li>
+                <li><button type="button" class="step-chip" data-gnss-step>2 Cihaz</button></li>
+                <li><button type="button" class="step-chip" data-gnss-step>3 Ölçüm</button></li>
+                <li><button type="button" class="step-chip" data-gnss-step>4 Koordinat</button></li>
+                <li><button type="button" class="step-chip" data-gnss-step>5 Dizi</button></li>
+                <li><button type="button" class="step-chip" data-gnss-step>6 Veri seti</button></li>
+                <li><button type="button" class="step-chip" data-gnss-step>7 Çizim</button></li>
+              </ol>
+            </div>
+            <div class="panel">
+              <p class="panel-title">Ölçülen noktalar <span class="font-normal text-warm/50">(örnek, yerel koordinat, m)</span></p>
+              <div class="overflow-x-auto mt-3">
+                <table class="data-table dark">
+                  <thead><tr><th scope="col">Nokta</th><th scope="col">Y</th><th scope="col">X</th><th scope="col">Kot</th></tr></thead>
+                  <tbody data-gnss-table><tr><td colspan="4" class="empty">Henüz ölçülen nokta yok</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+            <p class="note dark">Bu animasyon uydu sinyal yayılımını veya RTK hesaplamasını simüle etmez; ölçüm iş akışını anlatır. Gösterilen sayılar gerçek saha ölçümü değildir.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PARSEL & BİNA OTURUMU DEMOSU ================= -->
+    <section id="arsa-demo" class="section bg-warm" data-scene-root="parcel" aria-labelledby="parcelTitle">
+      <div class="container-x">
+        <div class="max-w-3xl" data-reveal>
+          <p class="eyebrow text-accent">Ölçümden İnşaata</p>
+          <h2 id="parcelTitle" class="section-title">Parsel ve bina oturumu</h2>
+          <p class="mt-4 text-lg text-graphite/75">Parsel sınırı, aplikasyon, bina oturumu ve kot analizi arasındaki ilişkiyi örnek bir arsa üzerinde inceleyin.</p>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Demo modu">
+          <button type="button" class="chip light" data-parcel-mode="parsel" aria-pressed="true">Parsel Sınırı</button>
+          <button type="button" class="chip light" data-parcel-mode="aplikasyon" aria-pressed="false">Aplikasyon</button>
+          <button type="button" class="chip light" data-parcel-mode="bina" aria-pressed="false">Bina Oturumu</button>
+          <button type="button" class="chip light" data-parcel-mode="kot" aria-pressed="false">Kot Analizi</button>
+          <button type="button" class="chip light" data-parcel-mode="3d" aria-pressed="false">3D Görünüm</button>
+        </div>
+        <div class="mt-5 grid lg:grid-cols-12 gap-5">
+          <div class="lg:col-span-7 relative">
+            <div class="scene-box relative h-[56vh] min-h-[360px] max-h-[640px] !bg-[#dfe5e0]" data-scene tabindex="0" aria-label="Parsel ve bina oturumu 3D sahnesi">
+              <div class="scene-fallback" data-fallback></div>
+              <div class="gate" data-gate hidden><button type="button" class="btn btn-light" data-gate-on><i data-lucide="hand" class="w-4 h-4" aria-hidden="true"></i> 3D ile etkileşime geç</button></div>
+              <button type="button" class="gate-off" data-gate-off hidden>Etkileşimi bitir</button>
+              <span class="demo-badge absolute left-3 bottom-3 pointer-events-none">Eğitim amaçlı örnek veri</span>
+            </div>
+          </div>
+          <div class="lg:col-span-5">
+            <div class="card" data-parcel-panel="parsel">
+              <h3 class="font-bold text-primary text-lg">Parsel Sınırı</h3>
+              <p class="mt-2 text-sm text-graphite/75">Parsel köşe noktaları (K1–K5) koordinatlarıyla tanımlanır. Alan ve çevre, köşe koordinatlarından yatay düzlemde hesaplanır.</p>
+              <dl class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="stat light"><dt>Alan (örnek)</dt><dd data-parcel-area>—</dd></div>
+                <div class="stat light"><dt>Çevre (örnek)</dt><dd data-parcel-perimeter>—</dd></div>
+              </dl>
+              <div class="overflow-x-auto mt-4"><table class="data-table">
+                <caption class="sr-only">Örnek parsel köşe koordinatları</caption>
+                <thead><tr><th scope="col">Köşe</th><th scope="col">Yerel Y</th><th scope="col">Yerel X</th></tr></thead>
+                <tbody data-parcel-vertices></tbody></table></div>
+            </div>
+            <div class="card" data-parcel-panel="aplikasyon" hidden>
+              <h3 class="font-bold text-primary text-lg">Aplikasyon</h3>
+              <p class="mt-2 text-sm text-graphite/75">Projedeki bina köşelerinin tasarım koordinatları (üstte, mavi), referans noktası RN-1'e dayanılarak araziye aktarılır ve kazıklarla işaretlenir.</p>
+              <div class="overflow-x-auto mt-4"><table class="data-table">
+                <caption class="sr-only">Örnek bina köşesi tasarım koordinatları</caption>
+                <thead><tr><th scope="col">Bina köşesi</th><th scope="col">Yerel Y</th><th scope="col">Yerel X</th></tr></thead>
+                <tbody data-apl-table></tbody></table></div>
+              <button type="button" class="btn btn-outline !py-2 !px-3 text-sm mt-4" data-parcel-replay><i data-lucide="rotate-ccw" class="w-4 h-4" aria-hidden="true"></i> Aktarımı tekrar oynat</button>
+            </div>
+            <div class="card" data-parcel-panel="bina" hidden>
+              <h3 class="font-bold text-primary text-lg">Bina Oturumu</h3>
+              <p class="mt-2 text-sm text-graphite/75">Bina taban izi parsel içine yerleşir; temel, taşıyıcı sistem ve kavramsal bina hacmi aşamalı olarak görünür.</p>
+              <dl class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="stat light"><dt>Taban alanı (örnek)</dt><dd data-bld-area>—</dd></div>
+                <div class="stat light"><dt>±0,00 kotu (örnek)</dt><dd data-bld-level>—</dd></div>
+                <div class="stat light col-span-2"><dt>Kavramsal hacim</dt><dd data-bld-height>—</dd></div>
+              </dl>
+            </div>
+            <div class="card" data-parcel-panel="kot" hidden>
+              <h3 class="font-bold text-primary text-lg">Kot Analizi</h3>
+              <p class="mt-2 text-sm text-graphite/75">Parselden geçen bir kesit hattı boyunca arazi kotları ve başlangıç noktasına göre yükseklik farkları (Δh).</p>
+              <div class="profile mt-4" data-kot-svg></div>
+              <details class="mt-3 text-sm"><summary class="cursor-pointer font-semibold text-primary">Kesit değerleri tablosu</summary>
+                <div class="overflow-x-auto mt-3"><table class="data-table">
+                  <caption class="sr-only">Örnek kesit istasyonları</caption>
+                  <thead><tr><th scope="col">Mesafe (m)</th><th scope="col">Kot (m)</th><th scope="col">Δh (m)</th></tr></thead>
+                  <tbody data-kot-table></tbody></table></div>
+              </details>
+            </div>
+            <div class="card" data-parcel-panel="3d" hidden>
+              <h3 class="font-bold text-primary text-lg">3D Görünüm</h3>
+              <p class="mt-2 text-sm text-graphite/75">Parsel, referans noktaları, aplikasyon kazıkları ve kavramsal bina birlikte. Sahneyi fareyle veya dokunarak döndürebilirsiniz.</p>
+            </div>
+            <p class="note mt-4">Eğitim amaçlı gösterimdir. Kurgusal veriden yasal imar hakkı, çekme mesafesi veya resmi kadastro ölçüsü hesaplanmaz.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DRONE & FOTOGRAMETRİ ================= -->
+    <section id="drone-demo" class="section dark-section" data-scene-root="drone" aria-labelledby="droneTitle">
+      <div class="container-x">
+        <div class="max-w-3xl" data-reveal>
+          <p class="eyebrow text-cyan">Drone Haritalama & Fotogrametri</p>
+          <h2 id="droneTitle" class="section-title text-warm">Hava fotoğrafından 3D modele</h2>
+          <p class="mt-4 text-lg text-warm/75">Fotogrametrik iş akışının yedi temel adımı. Bu bölüm gerçek bir veri seti değil, temsili arazi üzerinde kavramsal bir anlatımdır.</p>
+        </div>
+        <div class="mt-10 relative">
+          <div class="scene-box relative h-[62vh] min-h-[380px] max-h-[700px]" data-scene tabindex="0" aria-label="Drone fotogrametri demosu 3D sahnesi">
+            <div class="scene-fallback" data-fallback></div>
+            <div class="gate" data-gate hidden><button type="button" class="btn btn-light" data-gate-on><i data-lucide="hand" class="w-4 h-4" aria-hidden="true"></i> 3D ile etkileşime geç</button></div>
+            <button type="button" class="gate-off" data-gate-off hidden>Etkileşimi bitir</button>
+            <div class="drone-panel panel" aria-live="polite">
+              <p class="panel-title" data-drone-title>1. Görüntü alımı</p>
+              <p class="mt-1 text-sm text-warm/75 leading-relaxed" data-drone-text>Drone, planlanan hatlar boyunca uçarak hava fotoğrafı çekiyor.</p>
+              <div class="legend static mt-3" data-drone-legend hidden><span>düşük</span><span class="legend-bar" aria-hidden="true"></span><span>yüksek</span></div>
+            </div>
+            <span class="demo-badge absolute left-3 bottom-3 pointer-events-none">Kavramsal demo · temsili veri</span>
+          </div>
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <button type="button" class="btn btn-light !py-2 !px-4 text-sm" data-drone-play aria-pressed="false"><i data-lucide="play" data-icon-play class="w-4 h-4" aria-hidden="true"></i><i data-lucide="pause" data-icon-pause class="w-4 h-4 hidden" aria-hidden="true"></i> <span data-label>Oynat</span></button>
+            <ol class="flex flex-wrap gap-1.5" aria-label="Fotogrametri adımları">
+              <li><button type="button" class="step-chip" data-drone-step>1 Görüntü alımı</button></li>
+              <li><button type="button" class="step-chip" data-drone-step>2 Bindirme</button></li>
+              <li><button type="button" class="step-chip" data-drone-step>3 Seyrek bulut</button></li>
+              <li><button type="button" class="step-chip" data-drone-step>4 Yoğun bulut</button></li>
+              <li><button type="button" class="step-chip" data-drone-step>5 Yüzey</button></li>
+              <li><button type="button" class="step-chip" data-drone-step>6 SYM / SAM</button></li>
+              <li><button type="button" class="step-chip" data-drone-step>7 Ortofoto</button></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TEKNİK ALTYAPI ================= -->
+    <section id="teknik-altyapi" class="section bg-bg-light" aria-labelledby="techTitle">
+      <div class="container-x grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-5" data-reveal>
+          <p class="eyebrow text-accent">Teknik Altyapı</p>
+          <h2 id="techTitle" class="section-title">Güncel ölçüm yöntemleri ve yazılımlar</h2>
+          <p class="mt-6 text-lg text-graphite/80 leading-relaxed">MEK Harita & Mühendislik, saha ölçümü ve ofis süreçlerinde güncel ölçüm yöntemleri, GNSS/GPS ölçüm altyapısı ve teknik çizim-hesaplama yazılımlarından yararlanarak güvenilir veri üretimi sağlar.</p>
+        </div>
+        <ul class="lg:col-span-7 grid sm:grid-cols-2 gap-4" data-reveal>
+          <li class="tech-item"><span class="tech-icon"><i data-lucide="satellite" aria-hidden="true"></i></span> GNSS / GPS Ölçüm Altyapısı</li>
+          <li class="tech-item"><span class="tech-icon"><i data-lucide="shield-check" aria-hidden="true"></i></span> Saha Ölçüm ve Kontrol Süreçleri</li>
+          <li class="tech-item"><span class="tech-icon"><i data-lucide="monitor-play" aria-hidden="true"></i></span> Teknik Çizim ve Hesaplama Yazılımları</li>
+          <li class="tech-item"><span class="tech-icon"><i data-lucide="file-text" aria-hidden="true"></i></span> Raporlama ve Veri Düzenleme</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= ÇALIŞMA ALANLARI ================= -->
+    <section id="calisma-alanlari" class="section bg-warm" aria-labelledby="areasTitle">
+      <div class="container-x">
+        <div class="max-w-3xl" data-reveal>
+          <p class="eyebrow text-accent">Çalışma Alanları</p>
+          <h2 id="areasTitle" class="section-title">Hizmet verdiğimiz alanlar</h2>
+          <p class="mt-4 text-lg text-graphite/75">Yalova ve çevresinde yürüttüğümüz başlıca çalışma alanları ve hizmet verdiğimiz sektörel uygulamalar:</p>
+        </div>
+        <ul class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal>
+          <li class="area-item"><span class="area-index">01</span> Konut ve villa projeleri</li>
+          <li class="area-item"><span class="area-index">02</span> Arsa ve parsel çalışmaları</li>
+          <li class="area-item"><span class="area-index">03</span> İnşaat ölçüm kontrolleri</li>
+          <li class="area-item"><span class="area-index">04</span> İmar ve ruhsat süreçleri</li>
+          <li class="area-item"><span class="area-index">05</span> Hafriyat, kot ve kübaj hesapları</li>
+          <li class="area-item"><span class="area-index">06</span> Vaziyet planı ve teknik raporlama</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= PROJELER ================= -->
+    <section id="projeler" class="section bg-bg-light" aria-labelledby="projectsTitle">
+      <div class="container-x">
+        <div class="max-w-3xl" data-reveal>
+          <p class="eyebrow text-accent">Projeler</p>
+          <h2 id="projectsTitle" class="section-title">Proje vitrini</h2>
+          <p class="mt-4 text-lg text-graphite/75">Tamamlanan projeler eklendikçe burada yer alacaktır. Aşağıdaki kartlar, iş akışlarını göstermek için hazırlanmış <strong>temsili örneklerdir</strong>; gerçek proje veya müşteri bilgisi içermez.</p>
+        </div>
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-projects></div>
+      </div>
+      <dialog class="project-dialog" data-project-dialog aria-labelledby="projectDialogTitle">
+        <div class="flex items-start justify-between gap-4 p-5 md:p-6 border-b border-gray-200">
+          <div>
+            <span class="demo-badge light" data-pd-badge>Temsili örnek</span>
+            <h3 id="projectDialogTitle" class="text-xl md:text-2xl font-bold text-primary mt-2" data-pd-title></h3>
+            <p class="text-sm text-graphite/60 mt-1" data-pd-meta></p>
+          </div>
+          <button type="button" class="p-2 rounded-sm hover:bg-gray-100" data-pd-close aria-label="Kapat"><i data-lucide="x" aria-hidden="true"></i></button>
+        </div>
+        <div class="p-5 md:p-6 space-y-5" data-pd-body></div>
+      </dialog>
+    </section>
+
+    <!-- ================= SSS ================= -->
+    <section id="sss" class="section bg-warm" aria-labelledby="faqTitle">
+      <div class="container-x grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-4" data-reveal>
+          <p class="eyebrow text-accent">SSS</p>
+          <h2 id="faqTitle" class="section-title">Sıkça Sorulan Sorular</h2>
+        </div>
+        <div class="lg:col-span-8 space-y-3" data-faq data-reveal>
+          <details class="faq-item">
+            <summary>Aplikasyon nedir ve neden yapılır? <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+            <p>Aplikasyon, projede veya tapuda belirtilen koordinatların ve sınırların sahaya doğru bir şekilde uygulanması işlemidir. İnşaata başlamadan önce hataları önlemek ve yasal sınırlara uymak için zorunludur.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Hizmet süresi ne kadardır? <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+            <p>Uygulanacak işin kapsamına göre değişmekle birlikte, saha ölçümleri genellikle aynı gün veya planlanan takvime göre en kısa sürede tamamlanır ve teknik raporlama süreci başlar.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Sadece Yalova içine mi hizmet veriyorsunuz? <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+            <p>Merkezimiz Yalova'da olmakla birlikte, projenin büyüklüğüne ve kapsamına bağlı olarak çevre illere de teknik hizmet sağlamaktayız.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Kot ve kübaj (hafriyat) hesabı nasıl yapılır? <i data-lucide="chevron-down" class="chev" aria-hidden="true"></i></summary>
+            <p>Arazi kazı öncesi ve sonrası gelişmiş GNSS ekipmanları ile hassas şekilde ölçülür. Alınan veriler ofis yazılımları ile 3 boyutlu modellenerek kazı ve dolgu hacimleri (kübaj) hesaplanır.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= İLETİŞİM ================= -->
+    <section id="iletisim" class="section bg-primary-dark text-warm" aria-labelledby="contactTitle">
+      <div class="container-x grid lg:grid-cols-12 gap-10 lg:gap-14">
+        <div class="lg:col-span-5" data-reveal>
+          <p class="eyebrow text-cyan">İletişim ve Teklif</p>
+          <h2 id="contactTitle" class="section-title text-warm">Projeniz için bize ulaşın</h2>
+          <ul class="mt-8 space-y-3">
+            <li><a href="tel:+905458953918" class="contact-row"><i data-lucide="phone" aria-hidden="true"></i><span>+90 545 895 3918</span></a></li>
+            <li><a href="mailto:info@mekharita.com.tr" class="contact-row"><i data-lucide="mail" aria-hidden="true"></i><span>info@mekharita.com.tr</span></a></li>
+            <li><a href="https://wa.me/905458953918" target="_blank" rel="noopener noreferrer" class="contact-row"><i data-lucide="message-circle" aria-hidden="true"></i><span>WhatsApp ile İletişime Geç</span></a></li>
+            <li class="contact-row static"><i data-lucide="map-pin" aria-hidden="true"></i><span>Merkez Ofis<br /><span class="text-warm/60 text-sm">Yalova, Türkiye</span></span></li>
+          </ul>
+          <div class="mt-8 border border-white/10 rounded-sm p-5">
+            <h3 class="font-bold">Çalışma Saatleri</h3>
+            <dl class="mt-3 text-sm space-y-2 text-warm/80">
+              <div class="flex justify-between border-b border-white/10 pb-2"><dt>Pazartesi - Cuma</dt><dd class="font-mono">09:00 - 18:00</dd></div>
+              <div class="flex justify-between border-b border-white/10 pb-2"><dt>Cumartesi</dt><dd class="font-mono">09:00 - 13:00</dd></div>
+              <div class="flex justify-between"><dt>Pazar</dt><dd class="text-warm/50">Kapalı</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7" data-reveal>
+          <form id="quoteForm" class="quote-form" novalidate>
+            <h3 class="text-2xl font-bold text-primary">Teklif Formu</h3>
+            <p class="mt-2 text-sm text-graphite/70" data-form-mode-note>Formu doldurduğunuzda talebiniz hazır bir WhatsApp mesajına dönüştürülür; göndermek için WhatsApp’ta <strong>Gönder</strong>’e dokunmanız yeterlidir.</p>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div><label for="qName" class="label">Ad Soyad / Firma *</label><input id="qName" name="name" required autocomplete="name" maxlength="120" class="field" /></div>
+              <div><label for="qPhone" class="label">Telefon *</label><input id="qPhone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" pattern="[\d\s+\(\)\-]{10,20}" class="field" /></div>
+              <div><label for="qEmail" class="label">E-posta</label><input id="qEmail" name="email" type="email" autocomplete="email" maxlength="160" class="field" /></div>
+              <div>
+                <label for="qService" class="label">Hizmet Türü *</label>
+                <select id="qService" name="service" required class="field">
+                  <option value="">Seçiniz...</option>
+                  <option value="Aplikasyon">Aplikasyon</option>
+                  <option value="Arazi Ölçümü">Arazi Ölçümü</option>
+                  <option value="Parsel Sınır Tespiti">Parsel Sınır Tespiti</option>
+                  <option value="Kot / Kübaj">Kot / Kübaj</option>
+                  <option value="Halihazır Harita">Halihazır Harita</option>
+                  <option value="İnşaat Ölçüm Kontrolü">İnşaat Ölçüm Kontrolü</option>
+                  <option value="GNSS / GPS Ölçümü">GNSS / GPS Ölçümü</option>
+                  <option value="Vaziyet Planı">Vaziyet Planı</option>
+                  <option value="İmar / Ruhsat Desteği">İmar / Ruhsat Desteği</option>
+                  <option value="Teknik Danışmanlık">Teknik Danışmanlık</option>
+                  <option value="Diğer">Diğer</option>
+                </select>
+              </div>
+              <div><label for="qCity" class="label">İl / İlçe</label><input id="qCity" name="city" autocomplete="address-level2" maxlength="80" class="field" /></div>
+              <div><label for="qParcel" class="label">Ada / Parsel <span class="font-normal text-graphite/50">(isteğe bağlı)</span></label><input id="qParcel" name="parcel" maxlength="60" class="field" /></div>
+            </div>
+            <div class="mt-4"><label for="qMessage" class="label">Proje Açıklaması *</label><textarea id="qMessage" name="message" rows="4" required maxlength="2000" class="field"></textarea></div>
+
+            <details class="mt-4 text-sm text-graphite/70">
+              <summary class="cursor-pointer font-semibold text-primary">KVKK bilgilendirmesi</summary>
+              <p class="mt-2 leading-relaxed">Bu formda paylaştığınız ad, telefon, e-posta, konum ve proje bilgileri; 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında yalnızca teklif talebinizin değerlendirilmesi ve size dönüş yapılması amacıyla işlenir. Talebiniz WhatsApp veya e-posta ile iletildiğinde ilgili hizmet sağlayıcının gizlilik koşulları da geçerlidir. Kanundan doğan haklarınız için <a href="mailto:info@mekharita.com.tr" class="underline text-primary">info@mekharita.com.tr</a> adresine başvurabilirsiniz.</p>
+            </details>
+            <div class="flex items-start gap-3 mt-4">
+              <input id="qConsent" name="consent" type="checkbox" required class="mt-1 w-4 h-4 accent-primary" />
+              <label for="qConsent" class="text-sm text-graphite/75 leading-snug">Kişisel verilerimin iletişim talebimin yanıtlanması amacıyla işlenmesini kabul ediyorum. *</label>
+            </div>
+            <p id="formError" class="hidden mt-4 text-sm text-red-700" role="alert"></p>
+            <button type="submit" class="btn btn-primary w-full mt-5" data-submit-label>WhatsApp ile Gönder</button>
+            <div id="formResult" class="hidden mt-4 p-4 bg-bg-light border border-gray-200 rounded-sm text-sm leading-relaxed" role="status"></div>
+          </form>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="bg-primary text-white border-t-4 border-accent">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="flex flex-col items-center md:items-start text-center md:text-left">
-          <p class="text-xl md:text-2xl font-bold tracking-tight mb-2">MEK Harita &<br class="md:hidden" /> Mühendislik</p>
-          <p class="text-gray-200 text-base md:text-lg font-medium">Ölçüde Hassas, Çözümde Güçlü.</p>
-        </div>
-        <nav class="flex flex-col items-center justify-center w-full" aria-label="Hızlı bağlantılar">
-          <h2 class="text-base md:text-lg font-bold mb-3 opacity-90 text-center">Hızlı Bağlantılar</h2>
-          <ul class="space-y-2 flex flex-col items-center">
-            <li><a href="#kurumsal" class="text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus-visible:underline">Kurumsal</a></li>
-            <li><a href="#hizmetler" class="text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus-visible:underline">Hizmetler</a></li>
-            <li><a href="#teknik-altyapi" class="text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus-visible:underline">Teknik Altyapı</a></li>
-            <li><a href="#calisma-alanlari" class="text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus-visible:underline">Çalışma Alanları</a></li>
-            <li><a href="#sss" class="text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus-visible:underline">SSS</a></li>
-            <li><a href="#iletisim" class="text-sm text-gray-200 hover:text-white transition-colors focus:outline-none focus-visible:underline">İletişim</a></li>
-          </ul>
-        </nav>
-        <div class="flex flex-col items-center md:items-end text-center md:text-right w-full">
-          <h2 class="text-base md:text-lg font-bold mb-3 opacity-90">İletişim</h2>
-          <ul class="space-y-2 flex flex-col items-center md:items-end">
-            <li class="flex items-center gap-2 text-sm text-gray-200">
-              <span>Yalova, Türkiye</span>
-              <i data-lucide="map-pin" class="opacity-80 hidden md:block w-[18px] h-[18px]" aria-hidden="true"></i>
-            </li>
-            <li>
-              <a href="mailto:info@mekharita.com.tr" class="flex items-center gap-2 text-sm text-gray-200 hover:text-white transition-colors">
-                <span>info@mekharita.com.tr</span>
-                <i data-lucide="mail" class="opacity-80 hidden md:block w-[18px] h-[18px]" aria-hidden="true"></i>
-              </a>
-            </li>
-            <li>
-              <a href="tel:+905458953918" class="flex items-center gap-2 text-sm text-gray-200 hover:text-white transition-colors font-medium">
-                <span>+90 545 895 3918</span>
-                <i data-lucide="phone" class="opacity-80 hidden md:block w-[18px] h-[18px]" aria-hidden="true"></i>
-              </a>
-            </li>
-            <li class="pt-2 w-full flex justify-center md:justify-end">
-              <a href="https://wa.me/905458953918" target="_blank" rel="noopener noreferrer" class="inline-block bg-[#185e35] text-white hover:bg-[#134928] transition-colors text-sm font-bold border border-transparent px-4 py-2 rounded-sm">
-                WhatsApp ile İletişime Geç
-              </a>
-            </li>
-          </ul>
-        </div>
+  <!-- ================= ALT BİLGİ ================= -->
+  <footer class="bg-graphite text-warm border-t-4 border-accent pb-20 md:pb-0">
+    <div class="container-x py-12 grid md:grid-cols-3 gap-10">
+      <div>
+        <p class="text-xl font-extrabold tracking-tight">MEK Harita & Mühendislik</p>
+        <p class="text-warm/70 mt-2">Ölçüde Hassas, Çözümde Güçlü.</p>
+      </div>
+      <nav aria-label="Hızlı bağlantılar">
+        <h2 class="font-bold mb-3">Hızlı Bağlantılar</h2>
+        <ul class="grid grid-cols-2 gap-2 text-sm text-warm/70">
+          <li><a class="hover:text-white" href="#kurumsal">Kurumsal</a></li>
+          <li><a class="hover:text-white" href="#hizmetler">Hizmetler</a></li>
+          <li><a class="hover:text-white" href="#arazi-3d">3D Arazi Gezgini</a></li>
+          <li><a class="hover:text-white" href="#teknik-altyapi">Teknik Altyapı</a></li>
+          <li><a class="hover:text-white" href="#calisma-alanlari">Çalışma Alanları</a></li>
+          <li><a class="hover:text-white" href="#projeler">Projeler</a></li>
+          <li><a class="hover:text-white" href="#sss">SSS</a></li>
+          <li><a class="hover:text-white" href="#iletisim">İletişim</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="font-bold mb-3">İletişim</h2>
+        <ul class="space-y-2 text-sm text-warm/70">
+          <li>Yalova, Türkiye</li>
+          <li><a class="hover:text-white" href="mailto:info@mekharita.com.tr">info@mekharita.com.tr</a></li>
+          <li><a class="hover:text-white" href="tel:+905458953918">+90 545 895 3918</a></li>
+          <li class="pt-2"><a href="https://wa.me/905458953918" target="_blank" rel="noopener noreferrer" class="btn btn-light !py-2 !px-4 text-sm">WhatsApp ile İletişime Geç</a></li>
+        </ul>
       </div>
     </div>
-    <div class="border-t border-[#133023]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-center">
-        <p class="text-xs text-gray-300 font-medium text-center">&copy; <span id="year">2026</span> MEK Harita & Mühendislik. Tüm hakları saklıdır.</p>
-      </div>
+    <div class="border-t border-white/10">
+      <p class="container-x py-4 text-xs text-warm/55">&copy; <span data-year>2026</span> MEK Harita & Mühendislik. Tüm hakları saklıdır. 3D sahnelerdeki arazi, parsel, nokta ve bina verileri temsilidir.</p>
     </div>
   </footer>
 
-  <!-- Modal: bölüm içerikleri doğrudan HTML'dedir (arama motorları ve JS'siz okuma için).
-       Her panel #hash ile açılır: #kurumsal, #hizmetler, #teknik-altyapi, #calisma-alanlari, #sss, #iletisim -->
-  <div id="modalOverlay" hidden class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 md:p-8" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm shadow-2xl flex flex-col relative">
-      <div class="sticky top-0 bg-white border-b border-gray-200 p-4 md:px-8 md:py-6 flex justify-between items-center z-10 shadow-sm">
-        <h2 id="modal-title" class="text-xl md:text-2xl font-bold text-primary"></h2>
-        <button id="modalClose" type="button" class="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors" aria-label="Kapat">
-          <i data-lucide="x" class="w-[26px] h-[26px]" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div id="modal-content" class="p-4 md:p-8">
-
-        <!-- KURUMSAL -->
-        <section data-panel="kurumsal" data-title="Kurumsal" hidden>
-          <div class="text-gray-800 space-y-8 leading-relaxed text-base md:text-lg">
-            <section>
-              <h3 class="text-xl font-bold text-primary mb-3 border-b border-gray-200 pb-2">Hakkımızda</h3>
-              <p><strong class="text-primary font-semibold">MEK Harita & Mühendislik</strong>; mühendislik hassasiyeti, doğru ölçüm, güvenilir veri üretimi ve sahadan ofise bütüncül teknik hizmet anlayışıyla çalışan bir harita mühendisliği firmasıdır. Yalova ve çevresinde aplikasyon, arazi ölçümü, parsel sınır tespiti, halihazır harita, kot-kübaj hesapları, vaziyet planı ve teknik danışmanlık alanlarında çözüm sunar.</p>
-            </section>
-            <section>
-              <h3 class="text-xl font-bold text-primary mb-3 border-b border-gray-200 pb-2">Misyon & Vizyon</h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-50 border border-gray-200 p-5 rounded-sm">
-                  <h4 class="font-bold text-accent mb-2">Misyonumuz</h4>
-                  <p class="text-base text-gray-700">Yalova ve çevresinde harita mühendisliği hizmetlerini; doğru ölçüm, güvenilir veri üretimi ve resmi süreçlere uygun teknik dokümantasyon anlayışıyla sunmak.</p>
-                </div>
-                <div class="bg-gray-50 border border-gray-200 p-5 rounded-sm">
-                  <h4 class="font-bold text-accent mb-2">Vizyonumuz</h4>
-                  <p class="text-base text-gray-700">Yalova ve çevresinde güvenilir, ulaşılabilir ve mühendislik disiplininden taviz vermeyen; doğru ölçüm ve teknik hizmet anlayışıyla tercih edilen bir harita mühendisliği firması olmak.</p>
-                </div>
-              </div>
-            </section>
-            <section>
-              <h3 class="text-xl font-bold text-primary mb-4 border-b border-gray-200 pb-2">Değerlerimiz</h3>
-              <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <li class="flex items-center gap-2 border border-gray-200 p-3 rounded-sm bg-white shadow-sm"><span class="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span><span class="font-medium text-gray-800 text-sm md:text-base">Hassasiyet</span></li>
-                <li class="flex items-center gap-2 border border-gray-200 p-3 rounded-sm bg-white shadow-sm"><span class="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span><span class="font-medium text-gray-800 text-sm md:text-base">Güvenilirlik</span></li>
-                <li class="flex items-center gap-2 border border-gray-200 p-3 rounded-sm bg-white shadow-sm"><span class="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span><span class="font-medium text-gray-800 text-sm md:text-base">Şeffaf iletişim</span></li>
-                <li class="flex items-center gap-2 border border-gray-200 p-3 rounded-sm bg-white shadow-sm"><span class="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span><span class="font-medium text-gray-800 text-sm md:text-base">Teknik doğruluk</span></li>
-                <li class="flex items-center gap-2 border border-gray-200 p-3 rounded-sm bg-white shadow-sm"><span class="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span><span class="font-medium text-gray-800 text-sm md:text-base">Zamanında teslim</span></li>
-                <li class="flex items-center gap-2 border border-gray-200 p-3 rounded-sm bg-white shadow-sm"><span class="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span><span class="font-medium text-gray-800 text-sm md:text-base">Resmi süreçlere uygunluk</span></li>
-              </ul>
-            </section>
-          </div>
-        </section>
-
-        <!-- HİZMETLER -->
-        <section data-panel="hizmetler" data-title="Hizmetler" hidden>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="crosshair" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">Aplikasyon Hizmetleri</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">Projede yer alan yapı, sınır veya teknik bilgilerin sahaya doğru şekilde aktarılması için uygulanır. İnşaat öncesi konum doğruluğu ve resmi sürece uygunluk açısından önemlidir.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="map" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">Sayısal Halihazır Harita Ölçümleri</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">Arazinin mevcut durumunu, yapılaşma bilgilerini, kotları ve detayları teknik çizim ortamına aktarmak için yapılır.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="map-pin" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">Arazi Ölçümü ve Parsel Sınır Tespiti</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">Mülkiyet sınırlarının, tapu ve kadastro verilerine göre sahada hassas şekilde belirlenmesi işlemidir.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="calculator" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">Kot, Kübaj ve Hafriyat Hesapları</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">Kazı, dolgu, hafriyat ve arazi kot farklarının teknik olarak hesaplanması için kullanılır.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="hard-hat" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">İnşaat Aks, Kot ve Kontrol Ölçümleri</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">İnşaat sürecinde konum, kot, aks ve uygulama kontrollerinin teknik doğrulukla yapılmasını sağlar.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="satellite" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">GNSS / GPS Ölçümleri</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">Konum verilerinin hassas ve güvenilir şekilde elde edilmesi için modern ölçüm ekipmanlarıyla yapılan saha çalışmalarını kapsar.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="file-spreadsheet" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">Vaziyet Planı ve Teknik Raporlama</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">Proje ve resmi süreçlerde kullanılabilecek teknik çizim, rapor ve saha verilerinin düzenlenmesini kapsar.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="file-text" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">İmar ve Ruhsat Süreçlerine Teknik Destek</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">İmar, ruhsat ve belediye süreçlerinde ihtiyaç duyulan teknik çizim, ölçüm ve belge hazırlıklarına destek sağlar.</p>
-            </article>
-            <article class="border border-gray-200 p-6 rounded-sm bg-gray-50 flex flex-col h-full hover:border-primary transition-colors">
-              <div class="flex items-center gap-3 mb-4 border-b border-gray-200 pb-3">
-                <i data-lucide="headset" class="text-primary w-[28px] h-[28px] flex-shrink-0" aria-hidden="true"></i>
-                <h3 class="font-bold text-gray-900 leading-tight">Teknik Danışmanlık ve Süreç Takibi</h3>
-              </div>
-              <p class="text-gray-700 text-sm leading-relaxed">Harita mühendisliği süreçlerinde teknik yönlendirme, belge takibi ve saha-ofis koordinasyonu sağlar.</p>
-            </article>
-          </div>
-        </section>
-
-        <!-- TEKNİK ALTYAPI -->
-        <section data-panel="teknik-altyapi" data-title="Teknik Altyapı" hidden>
-          <div class="space-y-8">
-            <p class="text-lg text-gray-800 leading-relaxed border-b border-gray-200 pb-6">MEK Harita & Mühendislik, saha ölçümü ve ofis süreçlerinde güncel ölçüm yöntemleri, GNSS/GPS ölçüm altyapısı ve teknik çizim-hesaplama yazılımlarından yararlanarak güvenilir veri üretimi sağlar.</p>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <li class="flex items-center gap-4 bg-gray-50 border border-gray-200 p-5 rounded-sm hover:border-primary transition-colors">
-                <div class="bg-white p-3 border border-gray-200 rounded-sm flex-shrink-0 shadow-sm"><i data-lucide="satellite" class="text-primary opacity-90 w-[28px] h-[28px]" aria-hidden="true"></i></div>
-                <span class="font-bold text-gray-800 text-lg">GNSS / GPS Ölçüm Altyapısı</span>
-              </li>
-              <li class="flex items-center gap-4 bg-gray-50 border border-gray-200 p-5 rounded-sm hover:border-primary transition-colors">
-                <div class="bg-white p-3 border border-gray-200 rounded-sm flex-shrink-0 shadow-sm"><i data-lucide="shield-check" class="text-primary opacity-90 w-[28px] h-[28px]" aria-hidden="true"></i></div>
-                <span class="font-bold text-gray-800 text-lg">Saha Ölçüm ve Kontrol Süreçleri</span>
-              </li>
-              <li class="flex items-center gap-4 bg-gray-50 border border-gray-200 p-5 rounded-sm hover:border-primary transition-colors">
-                <div class="bg-white p-3 border border-gray-200 rounded-sm flex-shrink-0 shadow-sm"><i data-lucide="monitor-play" class="text-primary opacity-90 w-[28px] h-[28px]" aria-hidden="true"></i></div>
-                <span class="font-bold text-gray-800 text-lg">Teknik Çizim ve Hesaplama Yazılımları</span>
-              </li>
-              <li class="flex items-center gap-4 bg-gray-50 border border-gray-200 p-5 rounded-sm hover:border-primary transition-colors">
-                <div class="bg-white p-3 border border-gray-200 rounded-sm flex-shrink-0 shadow-sm"><i data-lucide="file-text" class="text-primary opacity-90 w-[28px] h-[28px]" aria-hidden="true"></i></div>
-                <span class="font-bold text-gray-800 text-lg">Raporlama ve Veri Düzenleme</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- ÇALIŞMA ALANLARI -->
-        <section data-panel="calisma-alanlari" data-title="Çalışma Alanları" hidden>
-          <div class="space-y-6">
-            <p class="text-gray-800 text-lg mb-6 border-b border-gray-200 pb-4">Yalova ve çevresinde yürüttüğümüz başlıca çalışma alanları ve hizmet verdiğimiz sektörel uygulamalar:</p>
-            <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <li class="flex items-center gap-3 p-5 border border-gray-200 rounded-sm bg-gray-50"><span class="w-2 h-2 bg-primary flex-shrink-0"></span><span class="font-medium text-gray-800">Konut ve villa projeleri</span></li>
-              <li class="flex items-center gap-3 p-5 border border-gray-200 rounded-sm bg-gray-50"><span class="w-2 h-2 bg-primary flex-shrink-0"></span><span class="font-medium text-gray-800">Arsa ve parsel çalışmaları</span></li>
-              <li class="flex items-center gap-3 p-5 border border-gray-200 rounded-sm bg-gray-50"><span class="w-2 h-2 bg-primary flex-shrink-0"></span><span class="font-medium text-gray-800">İnşaat ölçüm kontrolleri</span></li>
-              <li class="flex items-center gap-3 p-5 border border-gray-200 rounded-sm bg-gray-50"><span class="w-2 h-2 bg-primary flex-shrink-0"></span><span class="font-medium text-gray-800">İmar ve ruhsat süreçleri</span></li>
-              <li class="flex items-center gap-3 p-5 border border-gray-200 rounded-sm bg-gray-50"><span class="w-2 h-2 bg-primary flex-shrink-0"></span><span class="font-medium text-gray-800">Hafriyat, kot ve kübaj hesapları</span></li>
-              <li class="flex items-center gap-3 p-5 border border-gray-200 rounded-sm bg-gray-50"><span class="w-2 h-2 bg-primary flex-shrink-0"></span><span class="font-medium text-gray-800">Vaziyet planı ve teknik raporlama</span></li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- SSS -->
-        <section data-panel="sss" data-title="Sıkça Sorulan Sorular" hidden>
-          <div class="space-y-4" id="faqList">
-            <details class="border border-gray-200 rounded bg-white">
-              <summary class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none focus-visible:text-primary flex justify-between items-center gap-4 cursor-pointer">
-                Aplikasyon nedir ve neden yapılır?
-                <i data-lucide="chevron-down" class="faq-chevron text-gray-400 flex-shrink-0 transition-transform" aria-hidden="true"></i>
-              </summary>
-              <div class="px-6 pb-4 text-gray-700 text-sm md:text-base leading-relaxed border-t border-gray-100 pt-3">
-                Aplikasyon, projede veya tapuda belirtilen koordinatların ve sınırların sahaya doğru bir şekilde uygulanması işlemidir. İnşaata başlamadan önce hataları önlemek ve yasal sınırlara uymak için zorunludur.
-              </div>
-            </details>
-            <details class="border border-gray-200 rounded bg-white">
-              <summary class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none focus-visible:text-primary flex justify-between items-center gap-4 cursor-pointer">
-                Hizmet süresi ne kadardır?
-                <i data-lucide="chevron-down" class="faq-chevron text-gray-400 flex-shrink-0 transition-transform" aria-hidden="true"></i>
-              </summary>
-              <div class="px-6 pb-4 text-gray-700 text-sm md:text-base leading-relaxed border-t border-gray-100 pt-3">
-                Uygulanacak işin kapsamına göre değişmekle birlikte, saha ölçümleri genellikle aynı gün veya planlanan takvime göre en kısa sürede tamamlanır ve teknik raporlama süreci başlar.
-              </div>
-            </details>
-            <details class="border border-gray-200 rounded bg-white">
-              <summary class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none focus-visible:text-primary flex justify-between items-center gap-4 cursor-pointer">
-                Sadece Yalova içine mi hizmet veriyorsunuz?
-                <i data-lucide="chevron-down" class="faq-chevron text-gray-400 flex-shrink-0 transition-transform" aria-hidden="true"></i>
-              </summary>
-              <div class="px-6 pb-4 text-gray-700 text-sm md:text-base leading-relaxed border-t border-gray-100 pt-3">
-                Merkezimiz Yalova'da olmakla birlikte, projenin büyüklüğüne ve kapsamına bağlı olarak çevre illere de teknik hizmet sağlamaktayız.
-              </div>
-            </details>
-            <details class="border border-gray-200 rounded bg-white">
-              <summary class="w-full px-6 py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors focus:outline-none focus-visible:text-primary flex justify-between items-center gap-4 cursor-pointer">
-                Kot ve kübaj (hafriyat) hesabı nasıl yapılır?
-                <i data-lucide="chevron-down" class="faq-chevron text-gray-400 flex-shrink-0 transition-transform" aria-hidden="true"></i>
-              </summary>
-              <div class="px-6 pb-4 text-gray-700 text-sm md:text-base leading-relaxed border-t border-gray-100 pt-3">
-                Arazi kazı öncesi ve sonrası gelişmiş GNSS ekipmanları ile hassas şekilde ölçülür. Alınan veriler ofis yazılımları ile 3 boyutlu modellenerek kazı ve dolgu hacimleri (kübaj) hesaplanır.
-              </div>
-            </details>
-          </div>
-        </section>
-
-        <!-- İLETİŞİM -->
-        <section data-panel="iletisim" data-title="İletişim ve Teklif" hidden>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <h3 class="text-xl font-bold text-primary mb-6 border-b border-gray-200 pb-2">İletişim Bilgileri</h3>
-              <div class="space-y-4">
-                <a href="tel:+905458953918" class="flex items-center gap-4 text-gray-800 bg-gray-50 p-4 border border-gray-200 rounded-sm hover:border-primary transition-colors">
-                  <i data-lucide="phone" class="text-primary w-[24px] h-[24px]" aria-hidden="true"></i>
-                  <span class="font-medium">+90 545 895 3918</span>
-                </a>
-                <a href="mailto:info@mekharita.com.tr" class="flex items-center gap-4 text-gray-800 bg-gray-50 p-4 border border-gray-200 rounded-sm hover:border-primary transition-colors">
-                  <i data-lucide="mail" class="text-primary w-[24px] h-[24px]" aria-hidden="true"></i>
-                  <span class="font-medium">info@mekharita.com.tr</span>
-                </a>
-                <a href="https://wa.me/905458953918" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 text-gray-800 bg-gray-50 p-4 border border-gray-200 rounded-sm hover:border-primary transition-colors">
-                  <i data-lucide="message-circle" class="text-primary w-[24px] h-[24px]" aria-hidden="true"></i>
-                  <span class="font-medium">WhatsApp ile İletişime Geç</span>
-                </a>
-                <div class="flex items-center gap-4 text-gray-800 bg-gray-50 p-4 border border-gray-200 rounded-sm">
-                  <i data-lucide="map-pin" class="text-primary w-[24px] h-[24px]" aria-hidden="true"></i>
-                  <div><p class="font-medium">Merkez Ofis</p><p class="text-sm text-gray-600">Yalova, Türkiye</p></div>
-                </div>
-              </div>
-              <div class="mt-8 bg-gray-50 p-5 border border-gray-200 rounded-sm">
-                <h4 class="font-bold text-gray-900 mb-2">Çalışma Saatleri</h4>
-                <dl class="text-sm text-gray-700 space-y-1">
-                  <div class="flex justify-between border-b border-gray-200 pb-1"><dt>Pazartesi - Cuma:</dt> <dd class="font-medium">09:00 - 18:00</dd></div>
-                  <div class="flex justify-between border-b border-gray-200 pb-1 pt-1"><dt>Cumartesi:</dt> <dd class="font-medium">09:00 - 13:00</dd></div>
-                  <div class="flex justify-between pt-1"><dt>Pazar:</dt> <dd class="font-medium text-gray-500">Kapalı</dd></div>
-                </dl>
-              </div>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-primary mb-2 border-b border-gray-200 pb-2">Teklif Formu</h3>
-              <p class="text-sm text-gray-600 mb-5">Formu doldurduğunuzda talebiniz hazır bir WhatsApp mesajına dönüştürülür; göndermek için WhatsApp’ta <strong>Gönder</strong>’e dokunmanız yeterlidir.</p>
-              <form id="quoteForm" class="space-y-4" novalidate>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label for="qName" class="block text-sm font-semibold text-gray-700 mb-1">Ad Soyad / Firma *</label>
-                    <input id="qName" name="name" required autocomplete="name" class="w-full border border-gray-300 rounded-sm p-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50 focus:bg-white aria-[invalid=true]:border-red-600" />
-                  </div>
-                  <div>
-                    <label for="qPhone" class="block text-sm font-semibold text-gray-700 mb-1">Telefon *</label>
-                    <input id="qPhone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" pattern="[\d\s+\(\)\-]{10,20}" class="w-full border border-gray-300 rounded-sm p-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50 focus:bg-white aria-[invalid=true]:border-red-600" />
-                  </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label for="qService" class="block text-sm font-semibold text-gray-700 mb-1">Hizmet Türü *</label>
-                    <select id="qService" name="service" required class="w-full border border-gray-300 rounded-sm p-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50 focus:bg-white aria-[invalid=true]:border-red-600">
-                      <option value="">Seçiniz...</option>
-                      <option value="Aplikasyon">Aplikasyon</option>
-                      <option value="Arazi Ölçümü">Arazi Ölçümü</option>
-                      <option value="Parsel Sınır Tespiti">Parsel Sınır Tespiti</option>
-                      <option value="Kot / Kübaj">Kot / Kübaj</option>
-                      <option value="Halihazır Harita">Halihazır Harita</option>
-                      <option value="İnşaat Ölçüm Kontrolü">İnşaat Ölçüm Kontrolü</option>
-                      <option value="Vaziyet Planı">Vaziyet Planı</option>
-                      <option value="Diğer">Diğer</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="qCity" class="block text-sm font-semibold text-gray-700 mb-1">İl / İlçe</label>
-                    <input id="qCity" name="city" autocomplete="address-level2" class="w-full border border-gray-300 rounded-sm p-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50 focus:bg-white" />
-                  </div>
-                </div>
-                <div>
-                  <label for="qParcel" class="block text-sm font-semibold text-gray-700 mb-1">Ada / Parsel Bilgisi, varsa</label>
-                  <input id="qParcel" name="parcel" class="w-full border border-gray-300 rounded-sm p-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50 focus:bg-white" />
-                </div>
-                <div>
-                  <label for="qMessage" class="block text-sm font-semibold text-gray-700 mb-1">Mesaj *</label>
-                  <textarea id="qMessage" name="message" rows="4" required class="w-full border border-gray-300 rounded-sm p-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50 focus:bg-white aria-[invalid=true]:border-red-600"></textarea>
-                </div>
-                <div class="flex items-start gap-3 mt-4">
-                  <input id="qConsent" name="consent" type="checkbox" required class="mt-1 w-4 h-4 accent-primary border-gray-300 rounded" />
-                  <label for="qConsent" class="text-sm text-gray-600 leading-tight">Kişisel verilerimin iletişim talebimin yanıtlanması amacıyla işlenmesini kabul ediyorum. *</label>
-                </div>
-                <p id="formError" class="hidden text-sm text-red-700" role="alert"></p>
-                <button type="submit" class="w-full bg-primary text-white font-bold py-3 mt-2 rounded-sm hover:bg-primary-dark transition-colors border-2 border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">WhatsApp ile Gönder</button>
-                <div id="formResult" class="hidden mt-4 p-4 bg-gray-50 text-gray-800 border border-gray-200 rounded text-sm leading-relaxed" role="status">
-                  <p class="flex items-start gap-2 font-semibold text-primary"><i data-lucide="info" class="w-[20px] h-[20px] flex-shrink-0" aria-hidden="true"></i> Talebiniz WhatsApp mesajı olarak hazırlandı.</p>
-                  <p class="mt-2">Mesajın bize ulaşması için açılan WhatsApp penceresinde <strong>Gönder</strong>’e dokunun. WhatsApp açılmadıysa
-                    <a id="formWaLink" href="https://wa.me/905458953918" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold underline">buradan tekrar açın</a>
-                    veya talebinizi <a id="formMailLink" href="mailto:info@mekharita.com.tr" class="text-primary font-semibold underline">e-posta ile gönderin</a>.</p>
-                </div>
-              </form>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </div>
-  </div>
+  <!-- Mobil hızlı iletişim çubuğu -->
+  <nav class="mobile-bar md:hidden" aria-label="Hızlı iletişim" data-mobile-bar>
+    <a href="tel:+905458953918"><i data-lucide="phone" aria-hidden="true"></i>Ara</a>
+    <a href="https://wa.me/905458953918" target="_blank" rel="noopener noreferrer"><i data-lucide="message-circle" aria-hidden="true"></i>WhatsApp</a>
+    <a href="#iletisim" class="is-primary"><i data-lucide="send" aria-hidden="true"></i>Teklif Al</a>
+  </nav>
 </body>
 </html>
