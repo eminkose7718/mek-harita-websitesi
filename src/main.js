@@ -130,6 +130,14 @@ function contextFor(name) {
   return { quality };
 }
 
+// Bölüm görünür alana 1600 px'den yakın mı? (Gözlemci bildirimlerinin sırasına bağlı kalmamak için
+// sahne oluşturulduğu anda doğrudan ölçülür.)
+const FAR_MARGIN = 1600;
+function isNear(el) {
+  const r = el.getBoundingClientRect();
+  return r.bottom > -FAR_MARGIN && r.top < window.innerHeight + FAR_MARGIN;
+}
+
 document.querySelectorAll('[data-scene-root]').forEach((root) => {
   const name = root.dataset.sceneRoot;
   const container = root.querySelector('[data-scene]');
@@ -140,7 +148,6 @@ document.querySelectorAll('[data-scene-root]').forEach((root) => {
   }
   let api = null;
   let loading = false;
-  let inRange = false;
 
   async function mount() {
     loading = true;
@@ -148,7 +155,7 @@ document.querySelectorAll('[data-scene-root]').forEach((root) => {
     try {
       const mod = await LOADERS[name]();
       const created = await mod.create(root, contextFor(name));
-      if (!inRange) {
+      if (!isNear(root)) {
         created.dispose();
       } else {
         api = created;
@@ -172,12 +179,11 @@ document.querySelectorAll('[data-scene-root]').forEach((root) => {
   }, { rootMargin: '300px 0px' }).observe(root);
 
   new IntersectionObserver(([en]) => {
-    inRange = en.isIntersecting;
-    if (!inRange && api) {
+    if (!en.isIntersecting && api) {
       api.dispose();
       api = null;
       if (name === 'hero') heroApi = null;
       container.classList.remove('is-ready');
     }
-  }, { rootMargin: '1600px 0px' }).observe(root);
+  }, { rootMargin: `${FAR_MARGIN}px 0px` }).observe(root);
 });
