@@ -18,6 +18,11 @@ npm run typecheck
 
 `?q=low|medium|high` URL parametresi grafik kalitesini elle seçer (varsayılan: cihaza göre otomatik).
 
+## Tek dosya HTML
+
+`npm run build:html` → `standalone/kervan-kuruyemis.html` (≈5 MB). JS, CSS, fontlar ve fotoğraflar içine gömülüdür;
+sunucu gerekmeden çift tıklayarak tarayıcıda açılabilir (harita için internet bağlantısı gerekir).
+
 ## Yayınlama
 
 Site tamamen statiktir (`out/` klasörü); herhangi bir statik barındırmada çalışır.
