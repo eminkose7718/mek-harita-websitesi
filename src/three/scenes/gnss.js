@@ -260,6 +260,7 @@ export async function create(root, { quality }) {
       controls.target.lerp(tgt, playing ? 1 : 1 - Math.pow(0.01, dt));
       host.camera.lookAt(controls.target);
     }
+    return playing || pulse.visible || halo.visible;
   });
 
   return { dispose: () => host.dispose() };

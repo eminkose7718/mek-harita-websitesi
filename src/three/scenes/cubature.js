@@ -112,7 +112,7 @@ export async function create(root, { quality }) {
     }
     nodeLines.geometry.attributes.position.needsUpdate = true;
     nodeLines.geometry.attributes.color.needsUpdate = true;
-    if (!host.running) host.render();
+    host.invalidate();
   }
 
   const slider = root.querySelector('[data-cub-level]');

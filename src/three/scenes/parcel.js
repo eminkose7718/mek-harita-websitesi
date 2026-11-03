@@ -196,13 +196,21 @@ export async function create(root, { quality }) {
     root.querySelectorAll('[data-parcel-panel]').forEach((p) => (p.hidden = p.dataset.parcelPanel !== m));
   }
   root.querySelectorAll('[data-parcel-mode]').forEach((b) => b.addEventListener('click', () => setMode(b.dataset.parcelMode)));
-  $('[data-parcel-replay]')?.addEventListener('click', () => (modeTime = 0));
+  $('[data-parcel-replay]')?.addEventListener('click', () => {
+    modeTime = 0;
+    host.invalidate();
+  });
 
   host.onFrame((dt) => {
     modeTime += dt;
     const k = 1 - Math.pow(0.004, dt);
     const tgt = TARGETS[mode];
-    for (const key of Object.keys(cur)) cur[key] += (tgt[key] - cur[key]) * k;
+    let settling = false;
+    for (const key of Object.keys(cur)) {
+      cur[key] += (tgt[key] - cur[key]) * k;
+      if (Math.abs(tgt[key] - cur[key]) > 0.002) settling = true;
+      else cur[key] = tgt[key];
+    }
     setOpacity(parcelGroup, cur.parcel);
     setOpacity(neighbors, cur.neighbors);
     setOpacity(refGrid, cur.grid);
@@ -233,6 +241,8 @@ export async function create(root, { quality }) {
     const targetStage = mode === 'bina' ? (host.reduced ? 4 : Math.min(4, modeTime * 1.1)) : mode === '3d' ? 4 : mode === 'aplikasyon' ? seg(at, 3.2, 3.8) : 0;
     bldStage += (targetStage - bldStage) * (mode === 'bina' ? 1 : k);
     bld.setStage(bldStage);
+    // Geçişler, aplikasyon/bina animasyonları sürerken veya otomatik dönüşte çiz
+    return settling || modeTime < 6.5 || Math.abs(targetStage - bldStage) > 0.001;
   });
 
   setMode(root.dataset.initialMode || 'parsel');

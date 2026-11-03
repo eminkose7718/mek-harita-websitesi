@@ -112,6 +112,7 @@ export async function create(root, { quality }) {
     parcelLabels.forEach((l) => setLabelOpacity(l, layers.parcels ? 1 : 0));
     pointGroup.visible = layers.points;
     root.querySelectorAll('[data-layer]').forEach((b) => b.setAttribute('aria-pressed', String(layers[b.dataset.layer])));
+    host.invalidate();
   }
 
   function setMode(m) {
@@ -160,6 +161,7 @@ export async function create(root, { quality }) {
     info.note.textContent = note;
     pick.position.copy(groundPoint(grid, e, n));
     pick.visible = true;
+    host.invalidate();
   }
 
   onCanvasClick(host, (ray) => {

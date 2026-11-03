@@ -25,7 +25,7 @@ function stateAt(p) {
     grid: seg(p, 0.02, 0.12) * (1 - seg(p, 0.52, 0.62) * 0.75),
     contours: seg(p, 0.04, 0.16),
     points: seg(p, 0.2, 0.3),
-    pointLabels: seg(p, 0.22, 0.28) * (1 - seg(p, 0.36, 0.42)),
+    pointLabels: 0, // bu bölümde odak GNSS alıcısında; etiketler metin kartıyla çakışmasın
     gnss: seg(p, 0.24, 0.3) * (1 - seg(p, 0.44, 0.48)),
     neighbors: seg(p, 0.42, 0.52),
     parcel: seg(p, 0.4, 0.5),
@@ -64,8 +64,12 @@ export async function create(root, { quality }) {
   target = trigger.progress;
   p = target;
 
+  let lastP = -1;
   host.onFrame((dt, elapsed) => {
     p = host.reduced ? target : p + (target - p) * (1 - Math.pow(0.001, dt));
+    if (Math.abs(target - p) < 1e-4) p = target;
+    const changed = p !== lastP;
+    lastP = p;
     const idx = Math.min(4, Math.floor(p * 5));
     if (idx !== active) {
       active = idx;
@@ -77,6 +81,7 @@ export async function create(root, { quality }) {
     cameraAt(KEYS, p, pos, tgt);
     host.camera.position.copy(pos);
     host.camera.lookAt(tgt);
+    return changed || p >= 0.8; // son bölümde drone pervaneleri döner
   });
 
   return {

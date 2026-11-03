@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { SceneHost, addLights } from '../host.js';
 import { buildWorld, cameraAt, seg } from '../world.js';
 
-const DURATION = 17; // saniye
+const DURATION = 14; // saniye
 const SCENES = [
   { at: 0, title: 'Arazi Modeli', text: 'Temsili 3D arazi modeli, topoğrafya ve yükseklik farklarıyla beliriyor.' },
   { at: 0.18, title: 'Ölçü Ağı ve Eş Yükselti Eğrileri', text: 'Karelaj, kontur çizgileri ve örnek ölçüm noktaları arazinin üzerine yerleşiyor.' },
@@ -100,9 +100,8 @@ export async function create(root, { quality, playIntro, onIntroEnd }) {
     host.camera.position.lerp(pos, k);
     curTgt.lerp(tgt, k);
     host.camera.lookAt(curTgt);
+    return playing || !host.reduced;
   });
-
-  host.start();
 
   return {
     skip: finish,

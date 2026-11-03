@@ -43,9 +43,10 @@ export function elevation(e, n) {
   const w = 0.85 * Math.exp(-(e * e + n * n) / (2 * 40 * 40));
   const site = 34 - 0.06 * n + 0.02 * e;
   h = h * (1 - w) + site * w;
-  // Model kenarlarında deniz seviyesinin altına yumuşak geçiş (kesik kenar görünmesin)
-  const edge = SIZE / 2 - Math.max(Math.abs(e), Math.abs(n));
-  return -10 + (h + 10) * smooth(0, 120, edge);
+  // Model kenarlarında deniz seviyesinin altına yumuşak geçiş: köşeleri yuvarlatılmış kare
+  // (süperelips) bir kıyı çizgisi, kesik kenar ve piramit görünümü oluşmasın
+  const d = Math.sqrt(Math.sqrt(e ** 4 + n ** 4));
+  return -10 + (h + 10) * (1 - smooth(105, 195, d));
 }
 
 export function toScene(e, n, h, out = new THREE.Vector3()) {
@@ -196,9 +197,39 @@ export function boundsFor(g, eMin, eMax, nMin, nMax) {
   return { i0: toI(eMin), i1: toI(eMax), j0: toJ(nMax), j1: toJ(nMin) };
 }
 
+/* ---------------- Önbellek ----------------
+ * Arazi ağı, köşe dizileri, renkler ve konturlar sahneler arasında paylaşılır;
+ * bir bölüme her girişte yeniden hesaplanmaz. Diziler salt okunur kullanılır. */
+const geoCache = new Map();
+const colorCache = new Map();
+const contourCache = new Map();
+const keyOf = (g, b) => `${g.res}|${b.i0},${b.i1},${b.j0},${b.j1}`;
+const fullBounds = (g) => ({ i0: 0, i1: g.res, j0: 0, j1: g.res });
+
 /* ---------------- Geometri ---------------- */
 export function buildTerrainGeometry(g, bounds) {
-  const { i0, i1, j0, j1 } = bounds ?? { i0: 0, i1: g.res, j0: 0, j1: g.res };
+  const b = bounds ?? fullBounds(g);
+  const key = keyOf(g, b);
+  let base = geoCache.get(key);
+  if (!base) {
+    base = buildTerrainArrays(g, b);
+    geoCache.set(key, base);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(base.pos, 3));
+  geo.setAttribute('normal', new THREE.BufferAttribute(base.normal, 3));
+  geo.setAttribute('uv', new THREE.BufferAttribute(base.uv, 2));
+  geo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(base.pos.length), 3));
+  geo.setIndex(new THREE.BufferAttribute(base.idx, 1));
+  geo.userData.bounds = b;
+  geo.userData.cacheKey = key;
+  geo.boundingSphere = base.sphere.clone();
+  geo.boundingBox = base.box.clone();
+  return geo;
+}
+
+function buildTerrainArrays(g, bounds) {
+  const { i0, i1, j0, j1 } = bounds;
   const W = i1 - i0 + 1;
   const H = j1 - j0 + 1;
   const pos = new Float32Array(W * H * 3);
@@ -224,18 +255,39 @@ export function buildTerrainGeometry(g, bounds) {
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
-  geo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(W * H * 3), 3));
   geo.setIndex(new THREE.BufferAttribute(idx, 1));
   geo.computeVertexNormals();
-  geo.userData.bounds = { i0, i1, j0, j1 };
-  return geo;
+  geo.computeBoundingSphere();
+  geo.computeBoundingBox();
+  return { pos, uv, idx, normal: geo.getAttribute('normal').array, sphere: geo.boundingSphere, box: geo.boundingBox };
+}
+
+/** Bir moda ait köşe renkleri (önbellekli) */
+export function terrainColors(g, mode, bounds) {
+  const b = bounds ?? fullBounds(g);
+  const key = `${keyOf(g, b)}|${mode}`;
+  let arr = colorCache.get(key);
+  if (!arr) {
+    arr = new Float32Array((b.i1 - b.i0 + 1) * (b.j1 - b.j0 + 1) * 3);
+    colorize(g, mode, arr, b);
+    colorCache.set(key, arr);
+  }
+  return arr;
 }
 
 export function setTerrainColors(geo, g, mode) {
   const attr = geo.getAttribute('color');
-  colorize(g, mode, attr.array, geo.userData.bounds);
+  attr.array.set(terrainColors(g, mode, geo.userData.bounds));
   attr.needsUpdate = true;
+}
+
+/** Önbellekteki renk ağından en yakın köşenin rengi (nokta bulutu gibi çok sayıda örnek için hızlı) */
+export function gridColorAt(g, mode, e, n, out) {
+  const arr = terrainColors(g, mode);
+  const i = Math.min(g.res, Math.max(0, Math.round((e + SIZE / 2) / g.step)));
+  const j = Math.min(g.res, Math.max(0, Math.round((SIZE / 2 - n) / g.step)));
+  const k = (j * g.N + i) * 3;
+  return out.setRGB(arr[k], arr[k + 1], arr[k + 2]);
 }
 
 /* ---------------- Eş yükselti eğrileri (marching squares) ---------------- */
@@ -246,7 +298,14 @@ const CASES = {
 };
 
 export function buildContours(g, { interval = 5, major = 25, lift = 0.035, bounds } = {}) {
-  const { i0, i1, j0, j1 } = bounds ?? { i0: 0, i1: g.res, j0: 0, j1: g.res };
+  const b = bounds ?? fullBounds(g);
+  const key = `${keyOf(g, b)}|${interval}|${major}|${lift}`;
+  if (!contourCache.has(key)) contourCache.set(key, computeContours(g, interval, major, lift, b));
+  return contourCache.get(key);
+}
+
+function computeContours(g, interval, major, lift, bounds) {
+  const { i0, i1, j0, j1 } = bounds;
   const minor = [];
   const majorArr = [];
   const N = g.N;
@@ -348,4 +407,33 @@ export function drapedPolygon(g, ring, { cell = 1, lift = 0.04 } = {}) {
   geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3));
   geo.computeVertexNormals();
   return geo;
+}
+
+/**
+ * Sayfa boştayken sahnelerin ihtiyaç duyacağı ağır hesapları küçük parçalar hâlinde önceden
+ * yapar (requestIdleCallback). Böylece bir 3D bölüme kaydırıldığında takılma olmaz.
+ */
+export function prewarm(res) {
+  const g = () => getGrid(res);
+  const local = (e0, e1, n0, n1) => boundsFor(g(), e0, e1, n0, n1);
+  const jobs = [
+    () => g(),
+    () => buildTerrainGeometry(g()),
+    () => terrainColors(g(), 'cinematic'),
+    () => buildContours(g(), { interval: 5, major: 25 }),
+    () => terrainColors(g(), 'topo'),
+    () => terrainColors(g(), 'satellite'),
+    () => terrainColors(g(), 'elevation'),
+    () => buildContours(g(), { interval: 1, major: 5, lift: 0.03, bounds: local(-70, 70, -60, 60) }),
+    () => buildContours(g(), { interval: 1, major: 5, lift: 0.025, bounds: local(-80, 80, -70, 70) }),
+    () => buildTerrainGeometry(g(), local(-60, 60, -45, 45)),
+    () => terrainColors(g(), 'elevation', local(-60, 60, -45, 45)),
+    () => terrainColors(g(), 'satellite', local(-60, 60, -45, 45)),
+  ];
+  const idle = window.requestIdleCallback ?? ((cb) => setTimeout(() => cb({ timeRemaining: () => 8 }), 60));
+  const run = (deadline) => {
+    while (jobs.length && deadline.timeRemaining() > 4) jobs.shift()();
+    if (jobs.length) idle(run, { timeout: 2000 });
+  };
+  idle(run, { timeout: 2000 });
 }

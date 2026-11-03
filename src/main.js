@@ -130,13 +130,20 @@ function contextFor(name) {
   return { quality };
 }
 
-// Bölüm görünür alana 1600 px'den yakın mı? (Gözlemci bildirimlerinin sırasına bağlı kalmamak için
-// sahne oluşturulduğu anda doğrudan ölçülür.)
-const FAR_MARGIN = 1600;
+// Sahneler görünür alana 900 px kala hazırlanır (kaydırma oraya ulaştığında hazır olsun),
+// 2200 px uzaklaşınca bellekten silinir. Yakınlık, gözlemci bildirimlerinin sırasına bağlı
+// kalmamak için sahne hazır olduğu anda doğrudan ölçülür.
+const NEAR_MARGIN = 900;
+const FAR_MARGIN = 2200;
 function isNear(el) {
   const r = el.getBoundingClientRect();
   return r.bottom > -FAR_MARGIN && r.top < window.innerHeight + FAR_MARGIN;
 }
+const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r()));
+const idle = (cb) => (window.requestIdleCallback ? requestIdleCallback(cb, { timeout: 4000 }) : setTimeout(cb, 1200));
+const cancelIdle = (id) => (window.cancelIdleCallback ? cancelIdleCallback(id) : clearTimeout(id));
+// Ağır sahne kurulumları sırayla yapılır; iki sahne aynı karede kurulup takılma yaratmaz
+let mountQueue = Promise.resolve();
 
 document.querySelectorAll('[data-scene-root]').forEach((root) => {
   const name = root.dataset.sceneRoot;
@@ -148,42 +155,73 @@ document.querySelectorAll('[data-scene-root]').forEach((root) => {
   }
   let api = null;
   let loading = false;
+  let pendingDispose = 0;
 
-  async function mount() {
-    loading = true;
-    fallback.textContent = '3D görünüm yükleniyor…';
-    try {
-      const mod = await LOADERS[name]();
-      const created = await mod.create(root, contextFor(name));
-      if (!isNear(root)) {
-        created.dispose();
-      } else {
-        api = created;
-        if (name === 'hero') {
-          heroApi = api;
-          clearTimeout(introGuard);
-        }
-        container.classList.add('is-ready');
-      }
-    } catch (err) {
-      console.error(`[3D] ${name}:`, err);
-      fallback.textContent = '3D görünüm bu cihazda yüklenemedi. Bölümün içeriği metin olarak yer alıyor.';
-      if (name === 'hero') endIntro();
-    } finally {
-      loading = false;
-    }
-  }
-
-  new IntersectionObserver(([en]) => {
-    if (en.isIntersecting && !api && !loading) mount();
-  }, { rootMargin: '300px 0px' }).observe(root);
-
-  new IntersectionObserver(([en]) => {
-    if (!en.isIntersecting && api) {
+  // Uzaklaşan sahne hemen durur (görünmez olduğu için zaten çizim yapmaz); WebGL bağlamının
+  // kapatılması ise kaydırmayı kilitlememek için tarayıcı boşta kalana ertelenir.
+  // Kullanıcı o arada geri dönerse sahne yeniden kurulmadan kullanılır.
+  function disposeLater() {
+    if (!api || pendingDispose) return;
+    pendingDispose = idle(() => {
+      pendingDispose = 0;
+      if (!api || isNear(root)) return;
       api.dispose();
       api = null;
       if (name === 'hero') heroApi = null;
       container.classList.remove('is-ready');
+    });
+  }
+
+  async function mount() {
+    fallback.textContent = '3D görünüm yükleniyor…';
+    try {
+      const mod = await LOADERS[name]();
+      if (!isNear(root)) return;
+      await nextFrame();
+      const t0 = performance.now();
+      const created = await mod.create(root, contextFor(name));
+      performance.measure(`3d-create:${name}`, { start: t0 });
+      // Shader'lar arka planda derlenir; sahne ancak hazır olunca görünür
+      await container.__sceneHost?.warm();
+      if (!isNear(root)) {
+        created.dispose();
+        return;
+      }
+      api = created;
+      if (name === 'hero') {
+        heroApi = api;
+        clearTimeout(introGuard);
+        schedulePrewarm();
+      }
+      container.classList.add('is-ready');
+    } catch (err) {
+      console.error(`[3D] ${name}:`, err);
+      fallback.textContent = '3D görünüm bu cihazda yüklenemedi. Bölümün içeriği metin olarak yer alıyor.';
+      if (name === 'hero') endIntro();
     }
+  }
+
+  new IntersectionObserver(([en]) => {
+    if (!en.isIntersecting) return;
+    if (pendingDispose) {
+      cancelIdle(pendingDispose);
+      pendingDispose = 0;
+    }
+    if (api || loading) return;
+    loading = true;
+    mountQueue = mountQueue.then(mount).finally(() => (loading = false));
+  }, { rootMargin: `${NEAR_MARGIN}px 0px` }).observe(root);
+
+  new IntersectionObserver(([en]) => {
+    if (!en.isIntersecting) disposeLater();
   }, { rootMargin: `${FAR_MARGIN}px 0px` }).observe(root);
 });
+
+// Diğer sahnelerin ihtiyaç duyacağı arazi hesapları, sayfa boştayken önceden hazırlanır
+let prewarmed = false;
+function schedulePrewarm() {
+  if (prewarmed || !webgl) return;
+  prewarmed = true;
+  import('./three/terrain.js').then((t) => t.prewarm(quality === 'high' ? 256 : 128));
+}
+window.addEventListener('load', () => setTimeout(schedulePrewarm, 3000), { once: true });

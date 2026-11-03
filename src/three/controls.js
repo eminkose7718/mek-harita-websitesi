@@ -18,7 +18,7 @@ export function createOrbit(host, root, { target = [0, 4, 0], minDistance = 5, m
     controls.target.x = THREE.MathUtils.clamp(controls.target.x, -panLimit, panLimit);
     controls.target.z = THREE.MathUtils.clamp(controls.target.z, -panLimit, panLimit);
   });
-  host.onFrame(() => controls.update());
+  host.onFrame(() => controls.update()); // true: kamera hâlâ hareket ediyor (sönümleme / otomatik dönüş)
 
   // Klavye: oklar döndürür, Shift+oklar kaydırır, + / − yakınlaştırır
   container.addEventListener('keydown', (e) => {

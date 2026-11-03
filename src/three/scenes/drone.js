@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { SceneHost, addLights } from '../host.js';
 import { createOrbit } from '../controls.js';
 import {
-  getGrid, buildTerrainGeometry, setTerrainColors, boundsFor, sampleGrid, colorAt, drapedGrid, S, YS,
+  getGrid, buildTerrainGeometry, setTerrainColors, boundsFor, sampleGrid, gridColorAt, drapedGrid, S, YS,
 } from '../terrain.js';
 import { COLORS, makeLine, makeDrone, makeSegments, setLineProgress, setOpacity } from '../objects.js';
 import { polyPath, seg } from '../world.js';
@@ -133,7 +133,7 @@ export async function create(root, { quality }) {
       const n = AREA.n0 + rand() * (AREA.n1 - AREA.n0);
       const h = sampleGrid(grid, e, n) + (rand() - 0.5) * noise;
       pos.set([e * S, h * YS + 0.03, -n * S], i * 3);
-      if (colorMode) colorAt(colorMode, e, n, h, 0.1, tmpC);
+      if (colorMode) gridColorAt(grid, colorMode, e, n, tmpC);
       else tmpC.setRGB(0.75 + rand() * 0.25, 0.9, 0.95);
       col.set([tmpC.r, tmpC.g, tmpC.b], i * 3);
     }
@@ -143,7 +143,7 @@ export async function create(root, { quality }) {
     return g;
   }
   const sparse = new THREE.Points(cloud(high ? 1800 : 900, 1.2, null), new THREE.PointsMaterial({ size: 0.09, vertexColors: true, transparent: true }));
-  const dense = new THREE.Points(cloud(high ? 42000 : 14000, 0.25, 'satellite'), new THREE.PointsMaterial({ size: high ? 0.06 : 0.08, vertexColors: true, transparent: true }));
+  const dense = new THREE.Points(cloud(high ? 36000 : 12000, 0.25, 'satellite'), new THREE.PointsMaterial({ size: high ? 0.06 : 0.08, vertexColors: true, transparent: true }));
   host.scene.add(sparse, dense);
 
   const { flyTo } = createOrbit(host, root, { target: PRESETS[0][1], minDistance: 4, maxDistance: 50 });
@@ -176,6 +176,7 @@ export async function create(root, { quality }) {
   chips.forEach((c, i) => c.addEventListener('click', () => {
     t = starts[i] + 0.01;
     setPlaying(!host.reduced);
+    host.invalidate();
   }));
   setPlaying(playing);
 
@@ -227,6 +228,7 @@ export async function create(root, { quality }) {
     setOpacity(dsm, s(5, 0, 0.9) * (1 - s(6, 0, 0.9)));
     setOpacity(ortho, s(6, 0, 0.9));
     setOpacity(orthoGrid, s(6, 0.6, 1.4) * 0.35);
+    return playing || drone.visible;
   });
 
   return { dispose: () => host.dispose() };

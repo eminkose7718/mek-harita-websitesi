@@ -26,4 +26,4 @@ export function detectQuality() {
   return 'high';
 }
 
-export const maxPixelRatio = (q) => (q === 'high' ? 1.75 : 1.35);
+export const maxPixelRatio = (q) => (q === 'high' ? 1.5 : 1.25);

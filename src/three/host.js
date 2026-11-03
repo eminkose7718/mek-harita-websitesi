@@ -2,6 +2,12 @@
  * SceneHost — her 3D bölüm için tek bir WebGL bağlamı yönetir:
  * boyutlandırma, görünürlüğe göre döngüyü durdurma, uyarlanabilir piksel oranı,
  * etiket katmanı (CSS2D) ve tam bellek temizliği.
+ *
+ * Akıcılık için:
+ *  - warm(): shader'lar ilk çizimden önce arka planda derlenir (compileAsync); bölüme
+ *    kaydırıldığında ana iş parçacığı kilitlenmez.
+ *  - İsteğe bağlı çizim: kare işleyicileri yalnızca bir şey hareket ediyorsa true döndürür;
+ *    kamera da sahne de durgunsa kare çizilmez (GPU ve pil tasarrufu, kaydırma rahatlar).
  */
 import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
@@ -17,13 +23,16 @@ export class SceneHost {
     this.visible = false;
     this.running = false;
     this.disposed = false;
+    this.warmed = false;
+    this.dirty = true;
+    this.lastCam = new Float32Array(16);
 
     const renderer = new THREE.WebGLRenderer({ antialias: quality === 'high', powerPreference: 'high-performance' });
     this.pixelRatio = Math.min(window.devicePixelRatio || 1, maxPixelRatio(quality));
     renderer.setPixelRatio(this.pixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.shadowMap.enabled = shadows && quality === 'high';
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.domElement.className = 'scene-canvas';
     renderer.domElement.setAttribute('aria-hidden', 'true');
     container.prepend(renderer.domElement);
@@ -68,7 +77,32 @@ export class SceneHost {
     this.labelRenderer?.setSize(w, h);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    if (!this.running) this.render();
+    this.invalidate();
+  }
+
+  /** Bir sonraki karede yeniden çizim iste (arayüz değişikliklerinden sonra çağrılır) */
+  invalidate() {
+    this.dirty = true;
+    if (!this.running && this.warmed && !this.disposed) this.render();
+  }
+
+  /** Shader'ları arka planda derle, ardından görünürse döngüyü başlat */
+  async warm() {
+    if (this.warmed || this.disposed) return;
+    try {
+      this.scene.updateMatrixWorld(true);
+      // Paralel derleme desteklenmiyorsa (bazı tarayıcılar) derleme ilk çizimde yapılır
+      if (this.renderer.compileAsync && this.renderer.extensions.has('KHR_parallel_shader_compile')) {
+        await this.renderer.compileAsync(this.scene, this.camera);
+      }
+    } catch {
+      /* derleme çizim sırasında yapılır */
+    }
+    if (this.disposed) return;
+    this.warmed = true;
+    this.dirty = true;
+    if (this.visible && !document.hidden) this.start();
+    else this.render();
   }
 
   onFrame(fn) {
@@ -76,8 +110,9 @@ export class SceneHost {
   }
 
   start() {
-    if (this.running || this.disposed) return;
+    if (this.running || this.disposed || !this.warmed) return;
     this.running = true;
+    this.dirty = true;
     this.clock.start();
     this.renderer.setAnimationLoop(() => this.tick());
   }
@@ -97,7 +132,20 @@ export class SceneHost {
   tick() {
     const dt = Math.min(this.clock.getDelta(), 0.1);
     this.elapsed += dt;
-    for (const fn of this.handlers) fn(dt, this.elapsed);
+    let active = false;
+    for (const fn of this.handlers) if (fn(dt, this.elapsed) === true) active = true;
+    // Kamera hareket ettiyse de çiz
+    this.camera.updateMatrixWorld();
+    const m = this.camera.matrixWorld.elements;
+    let moved = false;
+    for (let i = 0; i < 16; i++) {
+      if (Math.abs(m[i] - this.lastCam[i]) > 1e-6) {
+        moved = true;
+        this.lastCam[i] = m[i];
+      }
+    }
+    if (!(active || moved || this.dirty)) return;
+    this.dirty = false;
     this.render();
     this.adapt(dt);
   }
@@ -108,8 +156,8 @@ export class SceneHost {
     if (this.frameTimes.length < 90) return;
     const avg = this.frameTimes.reduce((a, b) => a + b, 0) / this.frameTimes.length;
     this.frameTimes.length = 0;
-    if (avg > 1 / 38 && this.pixelRatio > 0.8) {
-      this.pixelRatio = Math.max(0.8, this.pixelRatio - 0.2);
+    if (avg > 1 / 45 && this.pixelRatio > 0.75) {
+      this.pixelRatio = Math.max(0.75, this.pixelRatio - 0.15);
       this.renderer.setPixelRatio(this.pixelRatio);
       this.resize();
     }

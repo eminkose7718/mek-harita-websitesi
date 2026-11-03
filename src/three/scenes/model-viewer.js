@@ -36,6 +36,6 @@ export async function create(container, { quality, model }) {
   host.camera.position.copy(center).add(new THREE.Vector3(size * 0.6, size * 0.7, size * 0.8));
   host.camera.updateProjectionMatrix();
   controls.update();
-  host.start();
+  await host.warm();
   return { dispose: () => host.dispose() };
 }
