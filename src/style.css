@@ -545,6 +545,10 @@
     border-color: var(--color-cyan);
     color: #fff;
   }
+  .chip:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
   .chip[aria-pressed='true'] {
     background: var(--color-cyan);
     border-color: var(--color-cyan);
@@ -939,6 +943,15 @@
 .is-ready > .scene-fallback {
   display: none;
 }
+/* Hero'da gerçek bölge ile temsili parsel ölçeği arasındaki geçiş perdesi */
+.scene-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #0c1411;
+  opacity: 0;
+  pointer-events: none;
+}
 /* Hero'da yükleme yazısı gösterilmez; başlık zaten görünür */
 .hero-fallback {
   font-size: 0;
@@ -1191,6 +1204,11 @@
   padding: 0.45rem 0.75rem;
   border: 1px solid rgb(247 248 245 / 0.25);
   background: rgb(10 20 16 / 0.6);
+}
+.story-badge {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
 }
 .story-skip:hover {
   border-color: var(--color-cyan);

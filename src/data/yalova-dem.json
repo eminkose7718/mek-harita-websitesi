@@ -1,0 +1,55 @@
+{
+ "name": "Yalova",
+ "source": "Copernicus DEM GLO-30 (tile N40 E029)",
+ "crs": "EPSG:5254",
+ "crsName": "TUREF / TM30",
+ "origin": {
+  "Y": 437000,
+  "X": 4498000
+ },
+ "size": 18000.0,
+ "res": 384,
+ "heightScale": 0.1,
+ "heightDatum": "EGM2008",
+ "min": -0.8,
+ "max": 876.2,
+ "geoFit": {
+  "scale": 10000.0,
+  "lat": [
+   40.61423085717463,
+   0.000761662793163971,
+   0.09004478017042034,
+   -6.0435351877352776e-05,
+   2.4064694464803817e-06,
+   -7.144416679319955e-07,
+   -2.235092576510726e-09,
+   -1.909181136215495e-07,
+   3.191178939033009e-09,
+   -1.2885341910724734e-10
+  ],
+  "lon": [
+   29.2555319455176,
+   0.11816004943864022,
+   -0.0009994817370424863,
+   2.2576397854450345e-06,
+   0.00015859945248486023,
+   -2.257626394156186e-06,
+   -1.1939145390621725e-07,
+   1.1531840196600889e-08,
+   3.581728056185287e-07,
+   -3.843917756820587e-09
+  ],
+  "maxErrorM": 0.0
+ },
+ "places": [
+  {
+   "name": "Yalova",
+   "e": 1684.8,
+   "n": 4513.6,
+   "lat": 40.655,
+   "lon": 29.275
+  }
+ ],
+ "attribution": "Copernicus DEM GLO-30: © DLR e.V. 2010-2014 ve © Airbus Defence and Space GmbH 2014-2018, Avrupa Birliği ve ESA tarafından Copernicus programı kapsamında sağlanmıştır.",
+ "note": "Sayısal yüzey modeli (DSM): binalar ve bitki örtüsü dahil. 30 m kaynak çözünürlük, 46,875 m ağ aralığı."
+}

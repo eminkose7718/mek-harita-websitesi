@@ -1,8 +1,13 @@
 /**
- * TEMSİLİ 3D ARAZİ MODELİ
+ * 3D ARAZİ MODELLERİ
  *
- * Bu arazi gerçek bir coğrafi veriden değil, tohumlanmış gürültü fonksiyonlarından
- * prosedürel olarak üretilir. Gerçek bir konumu temsil etmez.
+ * İki tür yükseklik ağı (grid) vardır ve aşağıdaki tüm fonksiyonlar ikisiyle de çalışır:
+ *  - Temsili arazi (getGrid): tohumlanmış gürültüden prosedürel üretilir, 400 m × 400 m,
+ *    gerçek bir konumu temsil ETMEZ. Parsel/bina ölçeğindeki demolar bunu kullanır.
+ *  - Gerçek Yalova arazisi (dem.js → loadYalova): Copernicus DEM GLO-30'dan TUREF/TM30
+ *    ağına örneklenmiş 18 km × 18 km bölge.
+ * Her ağ kendi ölçeğini taşır: g.size (m), g.s (sahne birimi/m), g.ys (düşey ölçek, abartma dahil),
+ * g.cs (renk ölçeği: renk skalaları temsili arazinin 0–90 m aralığına göre tanımlıdır).
  *
  * Koordinat kuralları (karıştırılmaması için):
  *  - Yerel metrik koordinat (e, n): model merkezine göre doğu (e) ve kuzey (n), metre.
@@ -75,15 +80,15 @@ export function getGrid(res) {
       if (v > max) max = v;
     }
   }
-  const g = { res, N, step, h, min, max };
+  const g = { id: `demo${res}`, res, N, step, h, min, max, size: SIZE, s: S, ys: YS, cs: 1, sea: 0 };
   grids.set(res, g);
   return g;
 }
 
 /** Ağ üzerindeki (mesh ile birebir aynı üçgenlemeyle) kot */
 export function sampleGrid(g, e, n) {
-  const fi = (e + SIZE / 2) / g.step;
-  const fj = (SIZE / 2 - n) / g.step;
+  const fi = (e + g.size / 2) / g.step;
+  const fj = (g.size / 2 - n) / g.step;
   const i = Math.min(g.res - 1, Math.max(0, Math.floor(fi)));
   const j = Math.min(g.res - 1, Math.max(0, Math.floor(fj)));
   const u = clamp01(fi - i);
@@ -117,7 +122,7 @@ function aoAt(g, i, j) {
       cnt++;
     }
   }
-  const diff = g.h[j * N + i] - sum / cnt;
+  const diff = (g.h[j * N + i] - sum / cnt) / g.cs;
   return 1 + Math.max(-0.28, Math.min(0.12, diff * 0.06));
 }
 
@@ -177,9 +182,11 @@ export function colorize(g, mode, out, bounds) {
   let k = 0;
   for (let j = j0; j <= j1; j++) {
     for (let i = i0; i <= i1; i++) {
-      const e = -SIZE / 2 + i * g.step;
-      const n = SIZE / 2 - j * g.step;
-      const h = g.h[j * g.N + i];
+      // Renk skalaları temsili arazinin ölçeğinde tanımlı; diğer ağlar g.cs ile ölçeklenir
+      const e = (-g.size / 2 + i * g.step) / g.cs;
+      const n = (g.size / 2 - j * g.step) / g.cs;
+      const raw = g.h[j * g.N + i];
+      const h = raw <= g.sea ? Math.min(raw, 0) - 4 : raw / g.cs;
       colorAt(mode, e, n, h, slopeAt(g, i, j), tmp);
       if (mode !== 'paper' && mode !== 'wireframe') tmp.multiplyScalar(aoAt(g, i, j));
       out[k++] = tmp.r;
@@ -192,8 +199,8 @@ export function colorize(g, mode, out, bounds) {
 
 /** Metrik sınırlar → ağ indeksleri */
 export function boundsFor(g, eMin, eMax, nMin, nMax) {
-  const toI = (e) => Math.round((e + SIZE / 2) / g.step);
-  const toJ = (n) => Math.round((SIZE / 2 - n) / g.step);
+  const toI = (e) => Math.round((e + g.size / 2) / g.step);
+  const toJ = (n) => Math.round((g.size / 2 - n) / g.step);
   return { i0: toI(eMin), i1: toI(eMax), j0: toJ(nMax), j1: toJ(nMin) };
 }
 
@@ -203,7 +210,7 @@ export function boundsFor(g, eMin, eMax, nMin, nMax) {
 const geoCache = new Map();
 const colorCache = new Map();
 const contourCache = new Map();
-const keyOf = (g, b) => `${g.res}|${b.i0},${b.i1},${b.j0},${b.j1}`;
+const keyOf = (g, b) => `${g.id}|${b.i0},${b.i1},${b.j0},${b.j1}`;
 const fullBounds = (g) => ({ i0: 0, i1: g.res, j0: 0, j1: g.res });
 
 /* ---------------- Geometri ---------------- */
@@ -237,9 +244,9 @@ function buildTerrainArrays(g, bounds) {
   let p = 0, q = 0;
   for (let j = j0; j <= j1; j++) {
     for (let i = i0; i <= i1; i++) {
-      pos[p++] = (-SIZE / 2 + i * g.step) * S;
-      pos[p++] = g.h[j * g.N + i] * YS;
-      pos[p++] = -(SIZE / 2 - j * g.step) * S;
+      pos[p++] = (-g.size / 2 + i * g.step) * g.s;
+      pos[p++] = g.h[j * g.N + i] * g.ys;
+      pos[p++] = -(g.size / 2 - j * g.step) * g.s;
       uv[q++] = (i - i0) / (W - 1);
       uv[q++] = 1 - (j - j0) / (H - 1);
     }
@@ -284,8 +291,8 @@ export function setTerrainColors(geo, g, mode) {
 /** Önbellekteki renk ağından en yakın köşenin rengi (nokta bulutu gibi çok sayıda örnek için hızlı) */
 export function gridColorAt(g, mode, e, n, out) {
   const arr = terrainColors(g, mode);
-  const i = Math.min(g.res, Math.max(0, Math.round((e + SIZE / 2) / g.step)));
-  const j = Math.min(g.res, Math.max(0, Math.round((SIZE / 2 - n) / g.step)));
+  const i = Math.min(g.res, Math.max(0, Math.round((e + g.size / 2) / g.step)));
+  const j = Math.min(g.res, Math.max(0, Math.round((g.size / 2 - n) / g.step)));
   const k = (j * g.N + i) * 3;
   return out.setRGB(arr[k], arr[k + 1], arr[k + 2]);
 }
@@ -310,10 +317,11 @@ function computeContours(g, interval, major, lift, bounds) {
   const majorArr = [];
   const N = g.N;
   const H = g.h;
-  const start = Math.ceil(Math.max(g.min, 0) / interval) * interval;
+  // Gerçek veride deniz yüzeyi gürültülü olduğundan 0 m konturu atlanır (g.sea > 0)
+  const start = Math.ceil(Math.max(g.min, g.sea > 0 ? interval : 0) / interval) * interval;
   for (let L = start; L <= g.max; L += interval) {
     const arr = L % major === 0 ? majorArr : minor;
-    const y = L * YS + lift;
+    const y = L * g.ys + lift;
     for (let j = j0; j < j1; j++) {
       for (let i = i0; i < i1; i++) {
         const v0 = H[j * N + i], v1 = H[j * N + i + 1];
@@ -333,7 +341,7 @@ function computeContours(g, interval, major, lift, bounds) {
             else if (edge === 1) { fi = i + 1; fj = j + (L - v1) / (v2 - v1); }
             else if (edge === 2) { fi = i + (L - v3) / (v2 - v3); fj = j + 1; }
             else { fi = i; fj = j + (L - v0) / (v3 - v0); }
-            arr.push((-SIZE / 2 + fi * g.step) * S, y, -(SIZE / 2 - fj * g.step) * S);
+            arr.push((-g.size / 2 + fi * g.step) * g.s, y, -(g.size / 2 - fj * g.step) * g.s);
           }
         }
       }
@@ -356,11 +364,11 @@ export function drapePath(g, pts, { step = 1, lift = 0.05, closed = false } = {}
       const t = s / steps;
       const e = e0 + (e1 - e0) * t;
       const n = n0 + (n1 - n0) * t;
-      out.push(e * S, sampleGrid(g, e, n) * YS + lift, -n * S);
+      out.push(e * g.s, sampleGrid(g, e, n) * g.ys + lift, -n * g.s);
     }
   }
   const [el, nl] = list[list.length - 1];
-  out.push(el * S, sampleGrid(g, el, nl) * YS + lift, -nl * S);
+  out.push(el * g.s, sampleGrid(g, el, nl) * g.ys + lift, -nl * g.s);
   return new Float32Array(out);
 }
 
@@ -371,8 +379,9 @@ export function drapedGrid(g, { spacing = 25, extent = 190, step = 4, lift = 0.0
     for (let t = -extent; t < extent - 1e-6; t += step) {
       const t2 = Math.min(extent, t + step);
       // doğu-batı çizgisi (n = v) ve kuzey-güney çizgisi (e = v)
-      out.push(t * S, sampleGrid(g, t, v) * YS + lift, -v * S, t2 * S, sampleGrid(g, t2, v) * YS + lift, -v * S);
-      out.push(v * S, sampleGrid(g, v, t) * YS + lift, -t * S, v * S, sampleGrid(g, v, t2) * YS + lift, -t2 * S);
+      const { s: k, ys } = g;
+      out.push(t * k, sampleGrid(g, t, v) * ys + lift, -v * k, t2 * k, sampleGrid(g, t2, v) * ys + lift, -v * k);
+      out.push(v * k, sampleGrid(g, v, t) * ys + lift, -t * k, v * k, sampleGrid(g, v, t2) * ys + lift, -t2 * k);
     }
   }
   return new Float32Array(out);
@@ -395,7 +404,7 @@ export function drapedPolygon(g, ring, { cell = 1, lift = 0.04 } = {}) {
   const eMin = Math.min(...es), eMax = Math.max(...es);
   const nMin = Math.min(...ns), nMax = Math.max(...ns);
   const pos = [];
-  const v = (e, n) => pos.push(e * S, sampleGrid(g, e, n) * YS + lift, -n * S);
+  const v = (e, n) => pos.push(e * g.s, sampleGrid(g, e, n) * g.ys + lift, -n * g.s);
   for (let e = eMin; e < eMax; e += cell) {
     for (let n = nMin; n < nMax; n += cell) {
       if (!pointInPolygon(e + cell / 2, n + cell / 2, ring)) continue;
@@ -429,6 +438,21 @@ export function prewarm(res) {
     () => buildTerrainGeometry(g(), local(-60, 60, -45, 45)),
     () => terrainColors(g(), 'elevation', local(-60, 60, -45, 45)),
     () => terrainColors(g(), 'satellite', local(-60, 60, -45, 45)),
+  ];
+  const idle = window.requestIdleCallback ?? ((cb) => setTimeout(() => cb({ timeRemaining: () => 8 }), 60));
+  const run = (deadline) => {
+    while (jobs.length && deadline.timeRemaining() > 4) jobs.shift()();
+    if (jobs.length) idle(run, { timeout: 2000 });
+  };
+  idle(run, { timeout: 2000 });
+}
+
+/** Gerçek bölge ağı için ön hazırlık (hero ve gezginin ihtiyaç duyduğu geometri, renk ve konturlar) */
+export function prewarmGrid(g, modes = ['cinematic', 'topo']) {
+  const jobs = [
+    () => buildTerrainGeometry(g),
+    ...modes.map((m) => () => terrainColors(g, m)),
+    () => buildContours(g, { interval: 25, major: 100, lift: 0.012 }),
   ];
   const idle = window.requestIdleCallback ?? ((cb) => setTimeout(() => cb({ timeRemaining: () => 8 }), 60));
   const run = (deadline) => {

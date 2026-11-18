@@ -24,6 +24,7 @@ export class SceneHost {
     this.running = false;
     this.disposed = false;
     this.warmed = false;
+    this.extraScenes = []; // aynı tuvalde sırayla gösterilen ek sahneler (shader'ları da önceden derlenir)
     this.dirty = true;
     this.lastCam = new Float32Array(16);
 
@@ -93,7 +94,7 @@ export class SceneHost {
       this.scene.updateMatrixWorld(true);
       // Paralel derleme desteklenmiyorsa (bazı tarayıcılar) derleme ilk çizimde yapılır
       if (this.renderer.compileAsync && this.renderer.extensions.has('KHR_parallel_shader_compile')) {
-        await this.renderer.compileAsync(this.scene, this.camera);
+        for (const sc of new Set([this.scene, ...this.extraScenes])) await this.renderer.compileAsync(sc, this.camera);
       }
     } catch {
       /* derleme çizim sırasında yapılır */
@@ -170,7 +171,7 @@ export class SceneHost {
     this.ro.disconnect();
     this.io.disconnect();
     document.removeEventListener('visibilitychange', this.onVisibility);
-    this.scene.traverse((obj) => {
+    for (const sc of new Set([this.scene, ...this.extraScenes])) sc.traverse((obj) => {
       obj.geometry?.dispose();
       const mats = Array.isArray(obj.material) ? obj.material : obj.material ? [obj.material] : [];
       for (const m of mats) {

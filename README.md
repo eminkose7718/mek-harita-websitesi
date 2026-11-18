@@ -4,8 +4,9 @@ Yalova merkezli MEK Harita & Mühendislik'in kurumsal web sitesi: etkileşimli 3
 ölçüm ve fotogrametri demolarıyla harita mühendisliği hizmetlerini anlatır.
 Yayın adresi: [mekharita.com.tr](https://mekharita.com.tr/)
 
-> **Önemli:** 3D sahnelerdeki arazi, parsel, ölçüm noktası, bina ve fotogrametri verileri
-> **temsilidir** (prosedürel olarak üretilir). Gerçek ölçüm, resmi kadastro kaydı veya firma
+> **Önemli:** Hero ve 3D Arazi Gezgini'ndeki Yalova arazisi **gerçek uydu yükseklik verisidir**
+> (Copernicus DEM GLO-30). Parsel, ölçüm noktası, bina, fotogrametri verileri ve parsel ölçeğindeki
+> "örnek proje alanı" arazisi ise **temsilidir**: gerçek ölçüm, resmi kadastro kaydı veya firma
 > projesi değildir ve arayüzde her yerde bu şekilde etiketlenir.
 
 ## Teknoloji
@@ -100,10 +101,28 @@ ortam değişkenini tanımlayıp yeniden derleyin (bkz. `.env.example`).
   başında açıklanmıştır). Görseller `public/projeler/...` altına konur. GLB model ve GeoJSON
   parsel desteği hazırdır.
 
+## Gerçek arazi verisi (Yalova)
+
+- **Kaynak:** Copernicus DEM GLO-30 (N40 E029 karosu), AWS açık veri deposundan.
+  Sayısal **yüzey** modelidir (bina ve bitki örtüsü dahil), yükseklikler EGM2008'e göredir.
+- **Kapsam:** Merkezi TUREF/TM30 Y=437 000, X=4 498 000 olan 18 km × 18 km alan
+  (`src/data/yalova-dem.json`). Ağ başlangıcı km'ye hizalı olduğu için sahnedeki
+  koordinat ağı gerçek TM30 kilometre çizgileridir.
+- **Dosyalar:** `src/data/yalova-dem.bin` (385×385, masaüstü), `yalova-dem-low.bin`
+  (193×193, mobil); Int16, desimetre. Gezgin'de tıklanan noktanın TM30 koordinatı,
+  enlem/boylamı (pyproj ile doğrulanmış, hata < 1 cm) ve DEM yüksekliği gösterilir.
+- **Yeniden üretim:** `scripts/build_dem.py` (kullanımı dosyanın başında). Betik aynı girdiden
+  birebir aynı dosyaları üretir.
+- **Atıf:** Sayfa altbilgisinde yer alır. Copernicus DEM lisansındaki güncel atıf metniyle
+  karşılaştırılması önerilir.
+- Parsel ölçeğindeki demolar bilinçli olarak temsili arazide kalır: 30 m çözünürlük parsel
+  ölçeğinde ayrıntı vermez ve örnek parsellerin gerçek bir konumda gösterilmesi, gerçek
+  kadastro sınırı sanılmasına yol açabilir.
+
 ## Gerçek coğrafi veri kullanımı
 
-- Arazi `src/three/terrain.js` içinde prosedürel olarak üretilir. Gerçek bir sayısal yükseklik
-  modeli (DEM/SYM) kullanılacaksa `getGrid()` bu veriden beslenmelidir.
+- Temsili arazi `src/three/terrain.js` içinde prosedürel olarak üretilir; gerçek Yalova arazisi
+  `src/three/dem.js` ile yüklenir. Tüm arazi fonksiyonları her iki ağ türüyle çalışır.
 - Parseller GeoJSON olarak okunur (`parseParcels(fc, crs)` — `src/data/geo.js`). Projeksiyonlu
   metrik koordinatlar (ör. TM / ITRF96 3°) için `crs = { kind: 'projected', origin: [Y0, X0] }`
   verilir. **Coğrafi koordinatlar (enlem/boylam) metre değildir**; önce `proj4` gibi bir
