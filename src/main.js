@@ -222,6 +222,9 @@ let prewarmed = false;
 function schedulePrewarm() {
   if (prewarmed || !webgl) return;
   prewarmed = true;
-  import('./three/terrain.js').then((t) => t.prewarm(quality === 'high' ? 256 : 128));
+  import('./three/terrain.js').then((t) => {
+    t.prewarm(quality === 'high' ? 256 : 128);
+    import('./three/dem.js').then((d) => d.loadYalova(quality)).then((g) => t.prewarmGrid(g, ['topo'])).catch(() => {});
+  });
 }
 window.addEventListener('load', () => setTimeout(schedulePrewarm, 3000), { once: true });

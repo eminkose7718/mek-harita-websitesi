@@ -105,7 +105,7 @@
         <div class="hero-caption" data-hero-caption>
           <p class="eyebrow text-cyan" data-hero-caption-index>01 / 05</p>
           <p class="text-xl md:text-2xl font-bold text-warm mt-2" data-hero-caption-title>Arazi Modeli</p>
-          <p class="text-sm md:text-base text-warm/75 mt-1 max-w-md" data-hero-caption-text>Temsili 3D arazi modeli yükleniyor…</p>
+          <p class="text-sm md:text-base text-warm/75 mt-1 max-w-md" data-hero-caption-text>Yalova arazisi yükleniyor…</p>
         </div>
         <div class="hero-progress-wrap">
           <div class="hero-progress"><span data-hero-progress></span></div>
@@ -143,7 +143,7 @@
       </div>
 
       <div class="hero-meta">
-        <span class="demo-badge"><i data-lucide="info" class="w-3.5 h-3.5" aria-hidden="true"></i> Temsili 3D arazi modeli<span class="hidden sm:inline">&nbsp;· düşey abartma 1,5×</span></span>
+        <span class="demo-badge"><i data-lucide="info" class="w-3.5 h-3.5" aria-hidden="true"></i> Yalova · Copernicus DEM<span class="hidden sm:inline">&nbsp;· düşey abartma 2,5×</span></span>
         <button type="button" class="hero-replay" data-hero-replay hidden>
           <i data-lucide="rotate-ccw" class="w-3.5 h-3.5" aria-hidden="true"></i> Tekrar oynat
         </button>
@@ -157,6 +157,7 @@
           <div class="scene-fallback map-grid" data-fallback></div>
         </div>
         <div class="story-shade" aria-hidden="true"></div>
+        <span class="demo-badge story-badge">Temsili arazi · örnek veriler</span>
         <ol class="story-dots" aria-hidden="true">
           <li data-chapter-dot></li><li data-chapter-dot></li><li data-chapter-dot></li><li data-chapter-dot></li><li data-chapter-dot></li>
         </ol>
@@ -424,7 +425,7 @@
         <div class="max-w-3xl" data-reveal>
           <p class="eyebrow text-cyan">3D Proje Deneyimi</p>
           <h2 id="explorerTitle" class="section-title text-warm">Etkileşimli 3D Arazi Gezgini</h2>
-          <p class="mt-4 text-lg text-warm/75">Araziyi döndürün, yakınlaştırın, katmanları değiştirin ve herhangi bir noktaya tıklayarak örnek koordinat ve kot değerlerini inceleyin.</p>
+          <p class="mt-4 text-lg text-warm/75">Gerçek Yalova topoğrafyasını döndürün, yakınlaştırın ve herhangi bir noktaya tıklayarak TM30 koordinatını, enlem/boylamını ve uydu verisinden okunan yüksekliğini görün. Parsel örnekleri için “Örnek proje alanı”na geçin.</p>
         </div>
 
         <div class="mt-10 grid lg:grid-cols-12 gap-5">
@@ -438,7 +439,7 @@
                 <button type="button" class="tool-btn" data-action="zoom-out" aria-label="Uzaklaştır"><i data-lucide="minus" aria-hidden="true"></i></button>
                 <button type="button" class="tool-btn" data-action="reset" aria-label="Kamerayı sıfırla"><i data-lucide="rotate-ccw" aria-hidden="true"></i></button>
               </div>
-              <span class="demo-badge absolute left-3 bottom-3 pointer-events-none">Temsili 3D Arazi Modeli</span>
+              <span class="demo-badge absolute left-3 bottom-3 pointer-events-none" data-dataset-badge>Yalova · Copernicus DEM · düşey abartma 2,5×</span>
               <div class="legend" data-legend hidden>
                 <span data-legend-min>0 m</span><span class="legend-bar" aria-hidden="true"></span><span data-legend-max>90 m</span>
               </div>
@@ -448,9 +449,17 @@
 
           <aside class="lg:col-span-4 space-y-4" aria-label="Arazi gezgini kontrolleri">
             <div class="panel">
+              <p class="panel-title">Arazi verisi</p>
+              <div class="flex flex-wrap gap-2 mt-3" role="group" aria-label="Arazi verisi">
+                <button type="button" class="chip" data-dataset="region" aria-pressed="true">Yalova (gerçek arazi)</button>
+                <button type="button" class="chip" data-dataset="site" aria-pressed="false">Örnek proje alanı</button>
+              </div>
+              <p class="text-xs text-warm/55 mt-3" data-dataset-note>18 km × 18 km, Copernicus DEM GLO-30 uydu yükseklik verisi. Binalar ve bitki örtüsü dahil yüzey modelidir.</p>
+            </div>
+            <div class="panel">
               <p class="panel-title">Görselleştirme modu</p>
               <div class="flex flex-wrap gap-2 mt-3" role="group" aria-label="Görselleştirme modu">
-                <button type="button" class="chip" data-mode="satellite" aria-pressed="false">Uydu stili</button>
+                <button type="button" class="chip" data-mode="satellite" aria-pressed="false">Doğal renk</button>
                 <button type="button" class="chip" data-mode="topo" aria-pressed="true">Topografik</button>
                 <button type="button" class="chip" data-mode="wireframe" aria-pressed="false">Tel kafes</button>
                 <button type="button" class="chip" data-mode="elevation" aria-pressed="false">Yükseklik</button>
@@ -461,7 +470,7 @@
               <p class="panel-title">Katmanlar</p>
               <div class="flex flex-wrap gap-2 mt-3" role="group" aria-label="Katmanlar">
                 <button type="button" class="chip" data-layer="contours" aria-pressed="true">Eş yükselti eğrileri</button>
-                <button type="button" class="chip" data-layer="grid" aria-pressed="false">Ölçü ağı</button>
+                <button type="button" class="chip" data-layer="grid" aria-pressed="false">Koordinat ağı</button>
                 <button type="button" class="chip" data-layer="parcels" aria-pressed="false">Parsel sınırları</button>
                 <button type="button" class="chip" data-layer="points" aria-pressed="true">Ölçüm noktaları</button>
               </div>
@@ -469,11 +478,12 @@
             <div class="panel" aria-live="polite">
               <p class="panel-title" data-info-title>Bir nokta seçin</p>
               <dl class="coord-list mt-3">
-                <div><dt>Yerel Y (doğu)</dt><dd data-info-y>—</dd></div>
-                <div><dt>Yerel X (kuzey)</dt><dd data-info-x>—</dd></div>
-                <div><dt>Kot</dt><dd data-info-h>—</dd></div>
+                <div><dt data-info-label-y>Y (TM30, doğu)</dt><dd data-info-y>—</dd></div>
+                <div><dt data-info-label-x>X (TM30, kuzey)</dt><dd data-info-x>—</dd></div>
+                <div data-info-geo-row><dt>Enlem, boylam</dt><dd data-info-geo>—</dd></div>
+                <div><dt data-info-label-h>Yükseklik (DEM)</dt><dd data-info-h>—</dd></div>
               </dl>
-              <p class="text-xs text-warm/55 mt-3" data-info-note>Araziye veya turuncu ölçüm noktalarına tıklayın. Değerler temsili modelden okunan örneklerdir.</p>
+              <p class="text-xs text-warm/55 mt-3" data-info-note>Araziye tıklayın. Yükseklik, uydu verisinden okunan yaklaşık yüzey yüksekliğidir; arazi ölçümü değildir.</p>
             </div>
             <details class="panel text-sm text-warm/75">
               <summary class="cursor-pointer font-semibold text-warm">Koordinatlar nasıl okunur?</summary>
@@ -481,7 +491,8 @@
                 <li><strong class="text-warm">Coğrafi koordinat</strong> (enlem/boylam) derece cinsindendir ve metre değildir.</li>
                 <li><strong class="text-warm">Projeksiyonlu koordinat</strong> (ör. TM) metre cinsindendir; Türkiye pratiğinde Y sağa (doğu), X yukarı (kuzey) değeridir.</li>
                 <li><strong class="text-warm">Kot</strong>, noktanın yüksekliğidir (m).</li>
-                <li>Bu modeldeki Y/X değerleri <strong class="text-warm">yerel demo koordinatlarıdır</strong>; herhangi bir resmi koordinat sistemine bağlı değildir.</li>
+                <li><strong class="text-warm">Yalova görünümünde</strong> Y/X değerleri TUREF / TM30 (EPSG:5254) projeksiyonundadır ve ağ çizgileri gerçek TM30 kilometre çizgileridir. Yükseklik, Copernicus DEM'in EGM2008 yüzey yüksekliğidir (≈30 m çözünürlük, bina ve ağaçlar dahil); resmi kot değildir.</li>
+                <li><strong class="text-warm">Örnek proje alanında</strong> arazi temsilidir; Y/X değerleri yerel demo koordinatlarıdır ve gerçek bir konuma karşılık gelmez.</li>
               </ul>
             </details>
           </aside>
@@ -838,7 +849,7 @@
       </div>
     </div>
     <div class="border-t border-white/10">
-      <p class="container-x py-4 text-xs text-warm/55">&copy; <span data-year>2026</span> MEK Harita & Mühendislik. Tüm hakları saklıdır. 3D sahnelerdeki arazi, parsel, nokta ve bina verileri temsilidir.</p>
+      <p class="container-x py-4 text-xs text-warm/55">&copy; <span data-year>2026</span> MEK Harita & Mühendislik. Tüm hakları saklıdır. Yalova arazisi: Copernicus DEM GLO-30 — © DLR e.V. 2010-2014 ve © Airbus Defence and Space GmbH 2014-2018, Avrupa Birliği ve ESA tarafından Copernicus programı kapsamında sağlanmıştır. Parsel, nokta, bina ve proje alanı verileri temsilidir.</p>
     </div>
   </footer>
 
